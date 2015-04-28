@@ -9,7 +9,7 @@ gem 'bcrypt',           '~> 3.1.7'
 #gem 'paperclip', '~> 4.1'
 gem 'carrierwave',      '0.10.0'
 gem 'carrierwave-postgresql'
-gem 'rmagick', :require => 'RMagick'
+gem 'rmagick'
 gem 'mini_magick',      '3.8.0'
 gem 'bootstrap-sass',   '3.2.0.0'
 gem "therubyracer"
@@ -31,6 +31,7 @@ gem 'jalalidate'
 gem 'rails_pdate'
 #gem 'activeadmin', github: 'gregbell/active_admin'
 #gem 'activeadmin', github: 'activeadmin'
+gem 'pg',             '0.17.1'
 gem 'devise'
 gem 'pundit'
 #gem "cancan"
@@ -46,7 +47,7 @@ gem 'faye-redis'
 gem 'delayed_job_active_record'
 
 group :development, :test do
-  gem 'sqlite3',        '1.3.9'
+  #gem 'sqlite3',        '1.3.9'
   gem 'byebug',         '3.4.0'
   gem 'web-console',    '~> 2.0'
   gem 'spring',         '1.1.3'
@@ -68,7 +69,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
   gem 'puma',           '2.11.1'
   gem 'passenger'
