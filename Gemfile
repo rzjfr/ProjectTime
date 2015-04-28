@@ -1,0 +1,77 @@
+source 'https://rubygems.org'
+
+ruby '2.1.5'
+gem 'rails',            '4.2.0'
+gem 'nokogiri'
+#gem 'httparty'
+gem 'bcrypt',           '~> 3.1.7'
+#gem 'bcrypt-ruby',      '3.1.2'
+#gem 'paperclip', '~> 4.1'
+gem 'carrierwave',      '0.10.0'
+gem 'carrierwave-postgresql'
+gem 'rmagick', :require => 'RMagick'
+gem 'mini_magick',      '3.8.0'
+gem 'bootstrap-sass',   '3.2.0.0'
+gem "therubyracer"
+gem "less-rails"
+gem 'yui-compressor', '~> 0.12.0'
+gem "twitter-bootstrap-rails"
+gem 'sass-rails',       '~> 5.0'
+gem 'uglifier',         '>= 1.3.0'
+gem 'coffee-rails',     '~> 4.1.0'
+gem 'jquery-rails',     '4.0.3'
+gem 'turbolinks',       '2.3.0'
+gem 'jbuilder',         '~> 2.0'
+gem 'will_paginate',           '3.0.7'
+gem 'bootstrap-will_paginate', '0.0.10'
+gem 'kaminari'
+gem 'seed_dumper'
+#gem 'seedbank'
+gem 'jalalidate'
+gem 'rails_pdate'
+#gem 'activeadmin', github: 'gregbell/active_admin'
+#gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+gem 'pundit'
+#gem "cancan"
+#gem 'protected_attributes'
+#gem "mongoid", "~> 4.0.0"
+#gem 'redis', '2.1.1'
+#gem 'tire'
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-extensions', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
+gem 'faye'
+gem 'faye-redis'
+gem 'delayed_job_active_record'
+
+group :development, :test do
+  gem 'sqlite3',        '1.3.9'
+  gem 'byebug',         '3.4.0'
+  gem 'web-console',    '~> 2.0'
+  gem 'spring',         '1.1.3'
+  #gem 'spring-commands-rspec'
+  gem 'quiet_assets'
+  gem 'sdoc',           '~> 0.4.0'
+  gem 'railroady'
+  #gem 'rspec-rails',  '2.13.1'
+  gem 'faker',          '1.4.2'
+  gem 'custom_error_message', github: 'nwise/custom_error_message'
+  #gem 'pry'
+  #gem 'capistrano-rails', group: :development
+  #gem 'selenium-webdriver', '2.35.1'
+  #gem 'capybara', '2.1.0'
+  #gem 'factory_girl_rails', '4.2.0'
+  #gem 'cucumber-rails', '1.4.0', :require => false
+  # gem 'libnotify', '0.8.0'
+  #gem 'database_cleaner', github: 'bmabey/database_cleaner'
+end
+
+group :production do
+  gem 'pg',             '0.17.1'
+  gem 'rails_12factor', '0.0.2'
+  gem 'puma',           '2.11.1'
+  gem 'passenger'
+  gem 'thin'
+  #gem 'unicorn'
+end
