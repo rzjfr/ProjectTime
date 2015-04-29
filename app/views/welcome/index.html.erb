@@ -1,5 +1,4 @@
-<h1>Welcome</h1>
-<%= link_to "Sign up", "/signup" %>
-<%= link_to "login", "/login" %>
-<%= link_to "logout", "/logout" %>
-
+<h1>Welcome <%= current_user.email if current_user.present? %> </h1>
+<%= link_to "Sign up", "/signup" , class: 'btn btn-lg btn-success btn-block' if !current_user.present? %>
+<%= link_to "login", "/login" , class: 'btn btn-lg btn-success btn-block' if !current_user.present? %>
+<%= link_to "logout", "/logout" , class: 'btn btn-lg btn-success btn-block' if current_user.present?%>
