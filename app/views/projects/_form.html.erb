@@ -1,0 +1,11 @@
+<%= form_for(@project) do |f| %>
+     <%= render 'layouts/errors', object: f.object %>
+
+    <%= f.label :name , class: 'control-label' %><br>
+    <%= f.text_field :name , class: 'form-control' %>
+
+    <%= f.label :description , class: 'control-label' %><br>
+    <%= f.text_area :description , class: 'form-control' %>
+
+    <%= f.submit "Create", class: "btn btn-primary" %>
+<% end %>
