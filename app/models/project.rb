@@ -3,5 +3,12 @@ class Project < ActiveRecord::Base
   validates :description, length: { maximum: 200 }, presence: true
   validates :name, length: { maximum: 20 }, presence: true
   validates :user_id, presence: true
+  validate :uniqueness_in_scope
+  before_save { self.name = self.name.downcase }
 
+  def uniqueness_in_scope
+      if User.find(self.user_id).projects.where(name: self.name.downcase).present?
+      errors.add(:name, ': you have already created a project with that name.')
+    end
+  end
 end
