@@ -1,9 +1,9 @@
 <%= form_for(@project.project_member.new) do |f| %>
+    <%= render 'layouts/errors', object: f.object %>
 
     <%= f.label :user_id %>
-    <%= f.collection_select(:user_id, User.all, :id, :email) %>
+    <%= f.collection_select(:user_id, User.where('id not in (?)', @project.user_id), :id, :email) %>
     <%= f.hidden_field :project_id, value: @project.id %>
-
 
     <%= f.submit "Add user", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
 <% end %>

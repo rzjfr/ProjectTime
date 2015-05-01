@@ -1,5 +1,5 @@
 <%= form_for(@project) do |f| %>
-     <%= render 'layouts/errors', object: f.object %>
+    <%= render 'layouts/errors', object: f.object %>
 
     <%= f.label :name , class: 'control-label' %><br>
     <%= f.text_field :name , class: 'form-control' %>

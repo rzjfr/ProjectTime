@@ -13,6 +13,7 @@
 
   <tbody>
     <% @project_members.each do |project_member| %>
+      <% next if project_member.owner %>
       <tr>
         <td><%= User.find(project_member.user_id).email %></td>
         <td><%= Project.find(project_member.project_id).name %></td>
@@ -28,5 +29,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Project', new_project_path %>

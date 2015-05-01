@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   validates :user_id, presence: true
   validate :uniqueness_in_scope
   before_save { self.name = self.name.downcase }
+  after_create { self.add_project_member(User.find(self.user_id), self) }
 
   def uniqueness_in_scope
       if User.find(self.user_id).projects.where(name: self.name.downcase).present?
@@ -14,11 +15,12 @@ class Project < ActiveRecord::Base
   end
 
   def add_project_member(user, project)
-      ProjectMember.create(project_id: project.id, user_id: user.id, owner: project.user_id)
+    ProjectMember.create(project_id: project.id, user_id: user.id,
+                         owner: (project.user_id == user.id))
   end
 
   def remove_project_member(user, project)
-      ProjectMember.find_by(project_id: project.id, user_id: user.id).destroy
+    ProjectMember.find_by(project_id: project.id, user_id: user.id).destroy
   end
 
 end
