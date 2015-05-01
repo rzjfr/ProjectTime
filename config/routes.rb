@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :projects
-
   root 'welcome#index'
 
-  #devise_for :users
+  resources :projects
+
+  resources :project_members, only: [:create, :destroy]
+
   devise_for :users, path: '',
     :path_names => {sign_up: "signup", sign_in: "login", sign_out: "logout"}
 end

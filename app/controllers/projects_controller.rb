@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @project_members = @project.project_member
   end
 
   # GET /projects/new
@@ -51,6 +52,10 @@ class ProjectsController < ApplicationController
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def remove_member
+      byebug
   end
 
   # DELETE /projects/1
