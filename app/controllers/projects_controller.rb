@@ -7,6 +7,9 @@ class ProjectsController < ApplicationController
   def index
     #@projects = Project.all
     @projects = current_user.projects
+    @projects_in = Project.where('id in (?)',
+                                 ProjectMember.where('user_id in (?) and owner is false',
+                                                     current_user.id).pluck(:project_id))
   end
 
   # GET /projects/1
