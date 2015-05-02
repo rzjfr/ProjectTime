@@ -12,6 +12,8 @@
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
+  margin-left: auto ;
+  margin-right: auto ;
   margin-bottom: 15px;
   @include box_sizing;
 }
@@ -123,12 +125,36 @@ input {
     background-color: #2d272f;
   }
 }
-.navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
-.navbar {min-height:30px !important}
-.navbar-search,.navbar-brand {
+
+.navbar {min-height:20px !important}
+
+
+.navbar-search, .navbar-brand, form.navbar-form  {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
     padding-top:5px !important;
     padding-bottom:5px !important;
 }
+
+.navbar-nav > li > a {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top:8px !important;
+    padding-bottom:8px !important;
+}
+
+li.active {
+    /*padding-top:2px !important;*/
+    margin-top: 0px !important;
+}
+
 input.search-query {
     margin-bottom: 0px !important;
 }
+
+input.form-control, button.search-btn {
+    margin-bottom: 0px !important;
+    padding-top:2px !important;
+    padding-bottom:2px !important;
+}
+

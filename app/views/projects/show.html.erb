@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @project.user %>
+  <strong>Owner:</strong>
+  <%= @project.user.email %>
 </p>
 
 <%= render 'project_members_show' %>
