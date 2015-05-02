@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  after_action :verify_authorized, except: [:index, :new, :create]
 
   # GET /projects
   # GET /projects.json
@@ -16,6 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project_members = @project.project_member
+    authorize @project
   end
 
   # GET /projects/new
@@ -25,6 +27,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    authorize @project
   end
 
   # POST /projects
@@ -46,6 +49,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    authorize @project
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -57,13 +61,11 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def remove_member
-      byebug
-  end
 
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    authorize @project
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }

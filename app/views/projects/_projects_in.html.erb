@@ -18,9 +18,10 @@
         <td><%= project.name %></td>
         <td><%= project.description %></td>
         <td><%= project.user.email %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', project if policy(project).show? %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) if policy(project).edit? %></td>
+        <td><%= link_to 'Destroy', project, method: :delete,
+          data: { confirm: 'Are you sure?' } if policy(project).destroy? %></td>
       </tr>
     <% end %>
   </tbody>

@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :projects, dependent: :destroy
 
+  def admin?
+    self.admin
+  end
+
 end
