@@ -1,0 +1,11 @@
+<%= form_for(@project.milestone.build) do |f| %>
+    <%= render 'layouts/errors', object: f.object %>
+
+    <%= f.label :title %>
+    <%= f.text_field :title , class: 'form-control' %>
+    <%= f.label :end_date %>
+    <%= f.text_field :end_date , class: 'datepicker' %>
+    <%= f.hidden_field :project_id, value: @project.id %>
+
+    <%= f.submit "Add Milestone", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
+<% end %>
