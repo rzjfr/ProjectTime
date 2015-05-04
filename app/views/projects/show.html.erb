@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<%= collection_select :project, :id, current_user.projects, :id, :name,
+    {:selected => params[:id]},
+    {:onchange => "window.location = '/projects/'+ value;", class: "form-control"}%>
 <p>
   <strong>Name:</strong>
   <%= @project.name %>
