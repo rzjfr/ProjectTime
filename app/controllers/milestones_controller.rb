@@ -18,10 +18,15 @@ class MilestonesController < ApplicationController
 
   def create
     @project = Project.find(params[:milestone][:project_id])
-    Milestone.create(milestone_params)
+    @milestone = Milestone.create(milestone_params)
     respond_to do |format|
-      format.html { redirect_to @project}
-      format.js
+      if @milestone.errors.messages.empty?
+        format.html { redirect_to @project, notice: 'Task was successfully Created.'}
+        format.js
+      else
+        format.html { redirect_to @project, alert: @milestone.errors.full_messages.map { |msg| msg }.join}
+        format.js
+      end
     end
   end
 

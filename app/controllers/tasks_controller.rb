@@ -21,11 +21,11 @@ class TasksController < ApplicationController
     @task = Task.create(task_params.merge(creator_id: current_user.id,
                                           state: 'Backlog'))
     respond_to do |format|
-      if @task.update(task_params)
+      if @task.errors.messages.empty?
         format.html { redirect_to @project, notice: 'Task was successfully Created.' }
         format.js
       else
-        format.html { redirect_to @project, danger: 'There was an error.' }
+        format.html { redirect_to @project, alert: @task.errors.full_messages.map { |msg| msg }.join }
         format.js
       end
     end
