@@ -1,5 +1,6 @@
 class Milestone < ActiveRecord::Base
   belongs_to :project
+  has_many :task, dependent: :destroy
   default_scope { order('end_date DESC') }
   validates :title, length: { maximum: 200 }, presence: true
   validates :end_date, uniqueness: {scope: :project_id}, presence: true

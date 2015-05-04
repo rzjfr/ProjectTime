@@ -4,7 +4,7 @@ class Task < ActiveRecord::Base
   validates :title, length: { maximum: 20 }, presence: true
   validates :state, inclusion: { in: %w(Backlog Progress Done Archived),
                                  error: "%{value} is not a valid state" }
-  validate :valid_references
+  validate :valid_assignee
   validate :uniqueness_in_scope
 
   def uniqueness_in_scope
@@ -15,11 +15,7 @@ class Task < ActiveRecord::Base
 
   before_save { self.title = self.title.downcase }
 
-  def valid_references
-    if milestone_id.present? && Milestone.where(id: milestone_id).blank?
-      errors.add(:milestone, 'there is not such a milestone.')
-    end
-
+  def valid_assignee
     if assignee_id.present? && User.where(id: assignee_id).blank?
       errors.add(:user, 'there is not such a user.')
     end

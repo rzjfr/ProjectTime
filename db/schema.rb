@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20150504092422) do
     t.integer  "project_id"
     t.string   "title"
     t.string   "description"
-    t.integer  "estimate"
     t.integer  "milestone_id"
+    t.integer  "estimate"
     t.integer  "creator_id"
     t.integer  "assignee_id"
     t.string   "state"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150504092422) do
     t.datetime "updated_at",   null: false
   end
 
+  add_index "tasks", ["milestone_id"], name: "index_tasks_on_milestone_id", using: :btree
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -85,5 +86,6 @@ ActiveRecord::Schema.define(version: 20150504092422) do
   add_foreign_key "project_members", "projects"
   add_foreign_key "project_members", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "tasks", "milestones"
   add_foreign_key "tasks", "projects"
 end
