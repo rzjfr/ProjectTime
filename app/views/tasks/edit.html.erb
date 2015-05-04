@@ -1,0 +1,25 @@
+<%= form_for(@task) do |f| %>
+    <%= render 'layouts/errors', object: f.object %>
+
+    <%= f.label :title %>
+    <%= f.text_field :title , class: 'form-control' %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description , class: 'form-control' %>
+
+    <%= f.label :milestone_id %>
+    <%= f.collection_select :milestone_id,
+      Milestone.where('project_id = (?) and end_date > (?)', @task.project_id, Date.today),
+      :id, :full_title, {prompt: ""}, {class: "form-control"} %>
+
+    <%= f.label :user_id %>
+    <%= f.collection_select :assignee_id, User.where('id not in (?)', Project.find(@task.project_id).user_id),
+      :id, :email, {prompt: ""}, {class: "form-control"}  %>
+
+    <%= f.label :estimate %>
+    <%= f.select :estimate, (2..11).map{ |n| fibonaci(n)}, {prompt: ""}, {class: 'form-control'}  %>
+
+    <%= f.hidden_field :project_id, value: @task.project_id %>
+
+    <%= f.submit "Add Task", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
+<% end %>

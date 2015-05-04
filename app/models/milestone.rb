@@ -14,4 +14,8 @@ class Milestone < ActiveRecord::Base
   def passed?
     self.end_date <= Date.today
   end
+
+  def full_title
+    "[#{self.end_date}] #{self.title}"
+  end
 end

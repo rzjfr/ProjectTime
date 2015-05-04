@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Project Tasks</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Milestone</th>
+      <th>Owner</th>
+      <th>state</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project.task.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= Milestone.find(task.milestone_id).full_title if task.milestone_id.present?%></td>
+        <td><%= User.find(task.creator_id).email %></td>
+        <td><%= task.state %></td>
+        <td> <%= link_to "Edit", edit_task_path(task.id),
+                 class: "btn btn-mini btn-link"%> </td>
+        <td>
+        <%= form_for(task, html: { method: :delete }) do |f| %>
+            <%= hidden_field_tag :project_id , @project.id %>
+            <%= f.submit "Destroy", class: "btn btn-mini btn-link" , data: { disable_with: "Please wait..." } %>
+        <% end %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

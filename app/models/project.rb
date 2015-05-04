@@ -2,7 +2,8 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many :project_member, dependent: :destroy
   has_many :milestone, dependent: :destroy
-  validates :description, length: { maximum: 200 }, presence: true
+  has_many :task, dependent: :destroy
+  validates :description, length: { maximum: 200 }
   validates :name, length: { maximum: 20 }, presence: true
   validates :user_id, presence: true
   validate :uniqueness_in_scope
