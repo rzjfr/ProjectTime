@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  include RankedModel
+  ranks :row_order
   belongs_to :project
   validates :project_id, presence: true
   validates :title, length: { maximum: 20 }, presence: true

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     collection do
       post :send_next_state
       post :postpone_task
+      post :update_row_order
     end
   end
 

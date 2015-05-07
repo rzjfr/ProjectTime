@@ -1,17 +1,17 @@
-<% @tasks = @project.task.where(state: state) %>
+<% @tasks = @project.task.rank(:row_order).where(state: state) %>
 <h4> <%= state %> </h4>
-<table class="table table-condensed table-project">
+<table class="table table-condensed project" id="sortable-<%=state.downcase%>" >
   <% @tasks.each do |task| %>
-  <tbody>
-      <tr class="task-progress" >
-        <td colspan="3"><%= task.title %></td>
+  <tbody data-item-id=<%= "#{task.id}" %> class="task-item-<%=state.downcase%>" >
+      <tr  class="task-progress" >
+        <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="9"><%= task.title %></td>
         <td>
         <% if state != "Backlog" %>
             <%= form_for(:task, url: { action: :postpone_task, controller: :tasks}) do |f| %>
                 <%= hidden_field_tag :project_id , @project.id %>
                 <%= hidden_field_tag :id , task.id %>
                 <%= hidden_field_tag :state , state %>
-                <%= button_tag(:class => "btn btn-xs") do %>
+                <%= button_tag(class: "btn btn-xs") do %>
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"
                         data-toggle="tooltip" data-placement="left"
                         title="Postpone (Backlog)" ></span>
@@ -40,10 +40,8 @@
             </button>
         </td>
       </tr>
-  </tbody>
-  <tbody id="<%="task-#{task.id}"%>", class="collapse out">
-      <tr class="task-detail" >
-        <td  colspan="5">
+      <tr id="<%="task-#{task.id}"%>" class="task-detail collapse out" >
+        <td  colspan="11">
           <em>
               <%= Milestone.find(task.milestone_id).full_title if task.milestone_id.present?%>
           </em><br/>

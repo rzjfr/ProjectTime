@@ -75,11 +75,20 @@ class TasksController < ApplicationController
     end
   end
 
+  def update_row_order
+    @task = Task.find(task_params[:task_id])
+    @task.row_order_position = task_params[:row_order_position]
+    @task.save
+
+    render nothing: true
+  end
+
    private
 
      def task_params
        params.require(:task).permit(:project_id, :title, :milestone_id,
-                                    :description, :assignee_id, :estimate)
+                                    :description, :assignee_id, :estimate,
+                                    :row_order_position, :task_id)
      end
 
     def set_task
