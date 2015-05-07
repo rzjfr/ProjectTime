@@ -18,15 +18,14 @@
   <%= @project.user.email %>
 </p>
 <div class="row">
-  <div class="col-md-6">
-  <%= render 'project_members_show' %>
-  <%= render 'add_member' %>
-  <%= render 'tasks' %>
-  <%= render 'add_task' %>
+  <div class="col-md-3">
+    <%= render partial: "task_state", locals: {state: "Backlog" } %>
   </div>
-  <div class="col-md-6">
-  <%= render 'milestones' %>
-  <%= render 'add_milestone' %>
+  <div class="col-md-3">
+    <%= render partial: "task_state", locals: {state: "Progress" } %>
+  </div>
+  <div class="col-md-3">
+    <%= render partial: "task_state", locals: {state: "Done" } %>
   </div>
 </div>
 

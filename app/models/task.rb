@@ -5,13 +5,7 @@ class Task < ActiveRecord::Base
   validates :state, inclusion: { in: %w(Backlog Progress Done Archived),
                                  error: "%{value} is not a valid state" }
   validate :valid_assignee
-  validate :uniqueness_in_scope
-
-  def uniqueness_in_scope
-    if Project.find(self.project_id).task.where(title: self.title.downcase).present?
-      errors.add(:name, ': you have already created a task with that name.')
-    end
-  end
+  validates_uniqueness_of :title, scope: :project_id
 
   before_save { self.title = self.title.downcase }
 

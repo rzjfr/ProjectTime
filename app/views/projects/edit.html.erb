@@ -1,6 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>List Projects</h1>
+<%= collection_select :project, :id, current_user.projects, :id, :name,
+    {:selected => params[:id]},
+    {:onchange => "window.location = '/projects/'+ value;", class: "form-control"}%>
+<p>
+<p>
+  <strong>Owner:</strong>
+  <%= @project.user.email %>
+</p>
+
 <h1>Editing Project</h1>
+<%= form_for(@project) do |f| %>
+    <%= render 'layouts/errors', object: f.object %>
 
-<%= render 'form' %>
+    <%= f.label :name , class: 'control-label' %><br>
+    <%= f.text_field :name , class: 'form-control' %>
 
+    <%= f.label :description , class: 'control-label' %><br>
+    <%= f.text_field :description , class: 'form-control' %>
+
+    <%= f.submit "Apply changes", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
+<% end %>
+
+
+
+<div class="row">
+  <div class="col-md-6">
+  <%= render 'project_members_show' %>
+  <%= render 'add_member' %>
+  <%= render 'milestones' %>
+  <%= render 'add_milestone' %>
+  </div>
+  <div class="col-md-6">
+  <%= render 'tasks' %>
+  <%= render 'add_task' %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
 <%= link_to 'Show', @project %> |
 <%= link_to 'Back', projects_path %>

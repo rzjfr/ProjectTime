@@ -27,3 +27,5 @@ en:
       edit?: "You can only edit your own projects."
       update?: "You can only update your own projects."
       destroy?: "You can only remove your own projects."
+      statistics?: "You can only see your own projects."
+      searches?: "You can only see your own projects."

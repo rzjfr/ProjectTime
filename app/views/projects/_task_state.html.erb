@@ -1,0 +1,78 @@
+<% @tasks = @project.task.where(state: state) %>
+<h4> <%= state %> </h4>
+<table class="table table-condensed table-project">
+  <% @tasks.each do |task| %>
+  <tbody>
+      <tr class="task-progress" >
+        <td colspan="3"><%= task.title %></td>
+        <td>
+        <% if state != "Backlog" %>
+            <%= form_for(:task, url: { action: :postpone_task, controller: :tasks}) do |f| %>
+                <%= hidden_field_tag :project_id , @project.id %>
+                <%= hidden_field_tag :id , task.id %>
+                <%= hidden_field_tag :state , state %>
+                <%= button_tag(:class => "btn btn-xs") do %>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                        data-toggle="tooltip" data-placement="left"
+                        title="Postpone (Backlog)" ></span>
+                <%end%>
+                <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
+            <% end %>
+        <% end %>
+        </td>
+        <td>
+        <%= form_for(:task, url: { action: :send_next_state, controller: :tasks}) do |f| %>
+            <%= hidden_field_tag :project_id , @project.id %>
+            <%= hidden_field_tag :id , task.id %>
+            <%= hidden_field_tag :state , state %>
+            <%= button_tag(:class => "btn btn-xs") do %>
+                <span class="glyphicon glyphicon-step-forward" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="left"
+                    title="Goto Next State"></span>
+            <% end %>
+            <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
+        <% end %>
+        </td>
+        <td class="pull-right">
+            <button type="button" class="btn btn-xs btn-info"
+                data-toggle="collapse" data-target="<%="#task-#{task.id}"%>">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+            </button>
+        </td>
+      </tr>
+  </tbody>
+  <tbody id="<%="task-#{task.id}"%>", class="collapse out">
+      <tr class="task-detail" >
+        <td  colspan="5">
+          <em>
+              <%= Milestone.find(task.milestone_id).full_title if task.milestone_id.present?%>
+          </em><br/>
+          <strong>Owner: </strong><%= User.find(task.creator_id).email %> <br/>
+          <strong>Assigned to: </strong><%= User.find(task.assignee_id).email if task.assignee_id.present?%> <br/>
+          <strong>Estimate: </strong><%= task.estimate if task.estimate.present?%> <br/>
+        </td>
+        <td class="pull-right">
+          <%= link_to edit_task_path(task.id), class: "btn btn-default btn-xs" do %>
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          <% end %>
+        </td>
+        <td class="pull-right">
+          <%= form_for(task, html: { method: :delete }) do |f| %>
+            <%= hidden_field_tag :project_id , @project.id %>
+            <%= button_tag(class: "btn btn-xs", data: { disable_with: "Please wait..." }) do %>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <% end %>
+            <%#= f.submit "Destroy", class: "btn btn-mini btn-link" , data: { disable_with: "Please wait..." } %>
+          <% end %>
+        </td>
+        </td>
+        <td class="pull-right">
+            <button type="button" class="btn btn-xs btn-success"
+                data-toggle="collapse" data-target="<%="#task-#{task.id}"%>">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </button>
+        </td>
+      </tr>
+  </tbody>
+    <% end %>
+</table>

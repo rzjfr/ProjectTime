@@ -158,3 +158,27 @@ input.form-control, button.search-btn {
     padding-bottom:2px !important;
 }
 
+.task-progress {
+    background-color: #F5F5F5;
+    border:2px solid #F0F0F0;
+}
+
+.task-detail {
+    background-color: #FAFAFA;
+}
+
+td.pull-right {
+    border: 0px !important;
+    border-top: 0px solid #ddd !important;
+}
+
+table.project {
+    table-layout: fixed;
+    word-wrap: break-word;
+    overflow-y: hidden;
+}
+
+th.project, td.project {
+    border: 1px solid black;
+    overflow: hidden;
+}

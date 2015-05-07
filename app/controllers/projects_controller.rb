@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy,
+                                     :statistics, :searches]
   before_action :authenticate_user!
   after_action :verify_authorized, except: [:index, :new, :create]
 
@@ -20,6 +21,12 @@ class ProjectsController < ApplicationController
     authorize @project
   end
 
+  def statistics
+  end
+
+  def searches
+  end
+
   # GET /projects/new
   def new
     @project = Project.new
@@ -27,6 +34,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    @project_members = @project.project_member
     authorize @project
   end
 
