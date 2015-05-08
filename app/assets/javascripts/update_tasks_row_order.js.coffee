@@ -1,5 +1,6 @@
 #http://js2.coffee/
 #$('table[id^=sortable]').each(function(){ IDs.push(this.id); })
+#var IDs = $('table[id^=sortable]').map(function() { return this.id; }).get()
 #var IDs = IDs.filter(function(itm,i,a){ return i==a.indexOf(itm); });
 #IDs.forEach(function(tag, i){});
 

@@ -4,7 +4,19 @@
   <% @tasks.each do |task| %>
   <tbody data-item-id=<%= "#{task.id}" %> class="task-item" >
       <tr class="task-title" >
-        <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="9"><%= task.title %></td>
+        <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="10"><%= task.title %></td>
+        <!--
+        <td>
+            <button type="button" class="btn btn-xs" >
+                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-xs" >
+                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+            </button>
+        </td>
+        -->
         <td>
         <% if state != "Backlog" %>
             <%= form_for(:task, url: { action: :postpone_task, controller: :tasks}) do |f| %>
@@ -33,17 +45,11 @@
             <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
         <% end %>
         </td>
-        <td class="pull-right">
-            <button type="button" class="btn btn-xs btn-info"
-                data-toggle="collapse" data-target="<%="#task-#{task.id}"%>">
-                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-            </button>
-        </td>
       </tr>
       <tr id="<%="task-#{task.id}"%>" class="task-detail collapse out" >
         <td  colspan="11">
           <em>
-              <%= Milestone.find(task.milestone_id).full_title if task.milestone_id.present?%>
+              <strong>Description: </strong><%= task.description%>
           </em><br/>
           <strong>Owner: </strong><%= User.find(task.creator_id).email %> <br/>
           <strong>Assigned to: </strong><%= User.find(task.assignee_id).email if task.assignee_id.present?%> <br/>
