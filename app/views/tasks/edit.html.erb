@@ -9,7 +9,7 @@
 
     <%= f.label :milestone_id %>
     <%= f.collection_select :milestone_id,
-      Milestone.where('project_id = (?) and end_date > (?)', @task.project_id, Date.today),
+      Milestone.where('project_id = (?) and end_date >= (?)', @task.project_id, Date.today),
       :id, :full_title, {prompt: ""}, {class: "form-control"} %>
 
     <%= f.label :user_id %>
@@ -21,5 +21,5 @@
 
     <%= f.hidden_field :project_id, value: @task.project_id %>
 
-    <%= f.submit "Add Task", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
+    <%= f.submit "Save", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
 <% end %>

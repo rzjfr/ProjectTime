@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
     @projects_in = Project.where('id in (?)',
                                  ProjectMember.where('user_id in (?) and owner is false',
                                                      current_user.id).pluck(:project_id))
+
   end
 
   # GET /projects/1
@@ -19,6 +20,10 @@ class ProjectsController < ApplicationController
   def show
     @project_members = @project.project_member
     authorize @project
+    @milestones = @project.milestone
+    @milestones_board = @milestones.where.not("end_date < (?) and id != (?)",
+                                              Date.today,
+                                              @project.first_milestone.id)
   end
 
   def statistics

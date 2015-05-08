@@ -6,10 +6,10 @@ class MilestonesController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:milestone][:project_id])
     respond_to do |format|
       if @milestone.update(milestone_params)
-        format.html { redirect_to @project, notice: 'Milestone was successfully updated.' }
+        format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
+                      notice: 'Milestone was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -17,14 +17,15 @@ class MilestonesController < ApplicationController
   end
 
   def create
-    @project = Project.find(params[:milestone][:project_id])
     @milestone = Milestone.create(milestone_params)
     respond_to do |format|
       if @milestone.errors.messages.empty?
-        format.html { redirect_to @project, notice: 'Task was successfully Created.'}
+        format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
+                      notice: 'Task was successfully Created.'}
         format.js
       else
-        format.html { redirect_to @project, alert: @milestone.errors.full_messages.map { |msg| msg }.join}
+        format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
+                      alert: @milestone.errors.full_messages.map { |msg| msg }.join}
         format.js
       end
     end
@@ -32,9 +33,12 @@ class MilestonesController < ApplicationController
 
   def destroy
     @project = Project.find(params[:project_id])
+    Task.where(milestone_id: @milestone.id).update_all(milestone_id:
+                                                       @project.first_milestone.id)
     @milestone.destroy
     respond_to do |format|
-      format.html { redirect_to @project}
+      format.html { redirect_to edit_project_path(params[:project_id]),
+                    notice: 'Task was successfully Removed.'}
       format.js
     end
   end

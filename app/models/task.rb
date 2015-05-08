@@ -9,7 +9,12 @@ class Task < ActiveRecord::Base
   validate :valid_assignee
   validates_uniqueness_of :title, scope: :project_id
 
-  before_save { self.title = self.title.downcase }
+  before_save {
+    self.title = self.title.downcase
+    if self.milestone_id.nil?
+      self.milestone_id = Project.find(self.project_id).current_milestone.id
+    end
+  }
 
   def valid_assignee
     if assignee_id.present? && User.where(id: assignee_id).blank?

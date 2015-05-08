@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   after_create {
     self.add_project_member(User.find(self.user_id), self)
     Milestone.create(title: (self.name + " project start"),
-                     date: self.created_at.to_date, project_id: self.id)
+                     end_date: self.created_at.to_date, project_id: self.id)
   }
 
   def uniqueness_in_scope
@@ -30,15 +30,23 @@ class Project < ActiveRecord::Base
   end
 
   def last_milestone
-    Project.find(self.id).milestone.order(:end_date).first
+    self.milestone.order(:end_date).last
   end
 
   def first_milestone
-    Project.find(self.id).milestone.order(:end_date).last
+    self.milestone.order(:end_date).first
+  end
+
+  def uses_milestones?
+    self.milestone.count != 1
   end
 
   def current_milestone
-    Project.find(18).milestone.where('end_date <= (?)',
-                                     Date.today).order(:end_date).first
+    if self.uses_milestones?
+      return self.milestone.where('end_date >= (?)', Date.today).order(:end_date).first
+    else
+      return self.milestone.order(:end_date).last
+    end
   end
+
 end

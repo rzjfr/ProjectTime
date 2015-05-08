@@ -1,5 +1,21 @@
 <h4> <%= state %> </h4>
-<% @tasks = @project.task.rank(:row_order).where(state: state) %>
+<% @milestones_board.each do |milestone| %>
+    <% if @project.uses_milestones? %>
+        <h5 class="task-milestone-<%=milestone.date_state_in_words%> text-center">
+            <%= form_for(milestone, html: { method: :delete }) do |f| %>
+                <%= hidden_field_tag :project_id , @project.id %>
+                <%= button_tag(class: "btn btn-xs btn-link pull-right remove-milestone",
+                               data: { disable_with: "Please wait..." }) do %>
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                        data-toggle="tooltip" data-placement="left"
+                        title="Remove milestone" ></span>
+                <%end%>
+            <% end %>
+            <strong> Milestone: </strong>
+            <%= milestone.full_title %>
+        </h5>
+    <% end %>
+<% @tasks = milestone.task.rank(:row_order).where(state: state) %>
 <table class="table table-condensed project" id="sortable-<%=state.downcase%>" >
   <% @tasks.each do |task| %>
   <tbody data-item-id=<%= "#{task.id}" %> class="task-item-<%=state.downcase%>" >
@@ -74,3 +90,4 @@
   </tbody>
     <% end %>
 </table>
+<% end %>

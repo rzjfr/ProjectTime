@@ -158,9 +158,12 @@ input.form-control, button.search-btn {
     padding-bottom:2px !important;
 }
 
-.task-progress {
+.task-title {
     background-color: #DDDDDD;
     border:3px solid #D5D5D5;
+    border-radius: 15px !important;
+    -moz-border-radius: 15px !important;
+    -webkit-border-radius: 15px !important;
 }
 
 .task-detail {
@@ -181,4 +184,57 @@ table.project {
 th.project, td.project {
     border: 1px solid black;
     overflow: hidden;
+}
+
+table#sortable-backlog {
+    margin-bottom: 10px !important;
+}
+
+[class^='task-milestone'] {
+    border: 1px solid #bbb;
+    background-color: #555;
+    border:3px solid #444;
+    border-bottom: 0;
+    font-color: #eee;
+    text-color: #eee;
+    color: #eee;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom:5px;
+    margin-left: auto ;
+    margin-right: auto ;
+    margin-bottom: 0px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0;
+}
+
+.btn.btn-xs.btn-link.pull-right.remove-milestone {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border: 0 !important;
+    color: #DDD;
+      &:hover {
+         color: #BBB;
+       }
+}
+
+.task-milestone-future {
+    background-color: darken(#428bca, 30%);
+    border-color: darken(#428bca, 40%);
+}
+
+.task-milestone-current {
+    background-color: darken(#5cb85c, 30%);
+    border-color: darken(#5cb85c, 40%);
+}
+
+.task-milestone-past {
+    background-color: darken(#d9534f, 30%);
+    border-color: darken(#d9534f, 40%);
 }
