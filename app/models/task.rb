@@ -2,7 +2,7 @@ class Task < ActiveRecord::Base
   include RankedModel
   ranks :row_order, :with_same => :milestone_id
 
-  has_paper_trail :on => [:destroy, :create]
+  has_paper_trail# :on => [:destroy, :create, :update]
 
   belongs_to :project
   validates :project_id, presence: true
@@ -26,6 +26,14 @@ class Task < ActiveRecord::Base
     if assignee_id.present? && User.where(id: assignee_id).blank?
       errors.add(:user, 'there is not such a user.')
     end
+  end
+
+  def last_change_by
+    User.find(self.versions.last.whodunnit.to_i) if !self.versions.last.nil?
+  end
+
+  def last_changes
+    self.versions.last.changeset if !self.versions.last.nil?
   end
 
 end

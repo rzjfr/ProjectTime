@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>List Projects</h1>
 <%= collection_select :project, :id, current_user.projects, :id, :name,
     {:selected => params[:id]},

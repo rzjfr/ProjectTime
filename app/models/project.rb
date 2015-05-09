@@ -49,4 +49,8 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def changed_tasks_id
+    self.task.each.map { |x| x.id if !x.last_changes.nil? }.compact
+  end
+
 end
