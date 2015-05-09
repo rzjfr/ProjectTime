@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="notice"><%#= notice %></p>-->
 
 <%= collection_select :project, :id, current_user.projects, :id, :name,
     {:selected => params[:id]},

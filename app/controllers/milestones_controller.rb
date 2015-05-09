@@ -21,7 +21,7 @@ class MilestonesController < ApplicationController
     respond_to do |format|
       if @milestone.errors.messages.empty?
         format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
-                      notice: 'Task was successfully Created.'}
+                      notice: 'Milestone was successfully Created.'}
         format.js
       else
         format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
@@ -37,8 +37,8 @@ class MilestonesController < ApplicationController
                                                        @project.first_milestone.id)
     @milestone.destroy
     respond_to do |format|
-      format.html { redirect_to edit_project_path(params[:project_id]),
-                    notice: 'Task was successfully Removed.'}
+      format.html { redirect_to :back,
+                    notice: "Milestone was successfully Removed. #{undo_link}" }
       format.js
     end
   end
@@ -51,5 +51,9 @@ class MilestonesController < ApplicationController
 
     def set_milestone
       @milestone = Milestone.find(params[:id])
+    end
+
+    def undo_link
+      view_context.link_to("undo", revert_version_path(@milestone.versions.where(nil).last), method: :post)
     end
 end

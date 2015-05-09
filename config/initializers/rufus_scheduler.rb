@@ -1,7 +1,7 @@
 SCHEDULER.every("1h") do
   Project.all.each do |project|
     next if !project.uses_milestones?
-    Project.milestone.all.each do |milestone|
+    project.milestone.all.each do |milestone|
       first_id = project.first_milestone.id
       current_id = project.current_milestone.id
       if milestone.passed? && (milestone.id != first_id)

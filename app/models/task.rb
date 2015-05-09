@@ -2,6 +2,8 @@ class Task < ActiveRecord::Base
   include RankedModel
   ranks :row_order, :with_same => :milestone_id
 
+  has_paper_trail :on => [:destroy, :create]
+
   belongs_to :project
   validates :project_id, presence: true
   validates :title, length: { maximum: 20 }, presence: true

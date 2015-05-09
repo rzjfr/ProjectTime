@@ -1,4 +1,6 @@
 class Milestone < ActiveRecord::Base
+  has_paper_trail :on => [:destroy, :create]
+
   belongs_to :project
   has_many :task#, dependent: :destroy
   default_scope { order('end_date ASC') }

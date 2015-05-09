@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to edit_project_path(params[:task][:project_id]),
-                      notice: 'Task was successfully updated.' }
+                      notice: "Task was successfully updated. #{undo_link}" }
       else
         format.html { render :edit }
       end
@@ -35,8 +35,8 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to edit_project_path(params[:project_id]),
-                    notice: 'Task was successfully Removed.'}
+      format.html { redirect_to :back,
+                    notice: "Task was successfully Removed. #{undo_link}" }
       format.js
     end
   end
@@ -96,4 +96,9 @@ class TasksController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
     end
+
+    def undo_link
+      view_context.link_to("undo", revert_version_path(@task.versions.where(nil).last), method: :post)
+    end
+
 end
