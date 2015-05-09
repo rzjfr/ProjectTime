@@ -1,6 +1,7 @@
 class Task < ActiveRecord::Base
   include RankedModel
-  ranks :row_order
+  ranks :row_order, :with_same => :milestone_id
+
   belongs_to :project
   validates :project_id, presence: true
   validates :title, length: { maximum: 20 }, presence: true
@@ -8,6 +9,9 @@ class Task < ActiveRecord::Base
                                  error: "%{value} is not a valid state" }
   validate :valid_assignee
   validates_uniqueness_of :title, scope: :project_id
+  scope :done, -> {where(state: "Done" )}
+  scope :progress, -> {where(state: "Progress" )}
+  scope :backlog, -> {where(state: "Backlog" )}
 
   before_save {
     self.title = self.title.downcase
