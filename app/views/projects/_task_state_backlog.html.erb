@@ -1,4 +1,3 @@
-<h4> <%= state %> </h4>
 <% @milestones_board.each do |milestone| %>
     <% if @project.uses_milestones? %>
         <h5 class="task-milestone-<%=milestone.date_state_in_words%> text-center">

@@ -1,4 +1,8 @@
-<%= render 'projects' %>
-<%= render 'projects_in' %>
+<div class="row">
+  <%= render 'projects' %>
+  <%= render 'projects_in' %>
 
-<%= link_to 'New Project', new_project_path %>
+  <%= link_to new_project_path , class: "btn btn-primary" do%>
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"> Create New Project</span>
+  <% end %>
+</div>

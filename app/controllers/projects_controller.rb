@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy,
                                      :statistics, :searches]
   before_action :authenticate_user!
-  after_action :verify_authorized, except: [:index, :new, :create]
+  after_action :verify_authorized, except: [:index, :new, :create, :project_board]
 
   # GET /projects
   # GET /projects.json
@@ -13,6 +13,20 @@ class ProjectsController < ApplicationController
                                  ProjectMember.where('user_id in (?) and owner is false',
                                                      current_user.id).pluck(:project_id))
 
+  end
+
+  def project_board
+    if current_user.projects.empty?
+      redirect_to projects_path
+    else
+      @user_tasks = Task.where(creator_id: current_user)
+      if @user_tasks.empty?
+        @project = current_user.projects.order(:updated_at).last
+      else
+        @project = current_user.projects.find(@user_tasks.order(:updated_at).last.project_id)
+      end
+      redirect_to @project
+    end
   end
 
   # GET /projects/1

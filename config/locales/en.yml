@@ -24,6 +24,7 @@ en:
   pundit:
     project_policy:
       show?: "You can only see your own projects."
+      project_board?: "You can only see your own projects."
       edit?: "You can only edit your own projects."
       update?: "You can only update your own projects."
       destroy?: "You can only remove your own projects."

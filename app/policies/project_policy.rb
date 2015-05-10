@@ -10,6 +10,10 @@ class ProjectPolicy < ApplicationPolicy
     user.admin? or (user.id == project.user_id)
   end
 
+  def project_board?
+    user.admin? or (user.id == project.user_id)
+  end
+
   def statistics?
     user.admin? or (user.id == project.user_id)
   end

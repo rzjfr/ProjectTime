@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
 
+  unauthenticated do
+    devise_scope :user do
+      root 'welcome#index'
+    end
+  end
+
+  authenticated :user do
+    root :to => "projects#project_board", :as => "project_board"
+  end
+
+  get "project_board" => "projects#project_board"
   resources :projects
   resources :projects do
     member do

@@ -53,7 +53,7 @@ input {
 
 
 .navbar-default {
-  background-color: #5b555e;
+  background-color: #AFAFAF;
   border-color: #2d272f;
 }
 .navbar-default .navbar-brand {
@@ -69,7 +69,7 @@ input {
   color: #ecf0f1;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #dcdbff;
+  color: #D6D6D6;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu {
   background-color: #5b555e;
@@ -79,18 +79,18 @@ input {
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-  color: #dcdbff;
+  color: #D6D6D6;
   background-color: #2d272f;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
   background-color: #5b555e;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #dcdbff;
+  color: #D6D6D6;
   background-color: #2d272f;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: #dcdbff;
+  color: #D6D6D6;
   background-color: #2d272f;
 }
 .navbar-default .navbar-toggle {
@@ -110,7 +110,7 @@ input {
   color: #ecf0f1;
 }
 .navbar-default .navbar-link:hover {
-  color: #dcdbff;
+  color: #D6D6D6;
 }
 
 @media (max-width: 767px) {
@@ -170,9 +170,9 @@ input.form-control, button.search-btn {
     background-color: #FAFAFA;
 }
 
-td.pull-right {
-    border: 0px !important;
-    border-top: 0px solid #ddd !important;
+td.title-btn {
+    border: 0px;
+    border-top: 0px solid #ddd;
 }
 
 table.project {
@@ -205,14 +205,6 @@ table[id^=sortable-backlog] {
     margin-right: auto ;
     margin-bottom: 0px;
     margin-top: 0px;
-    /*-moz-border-radius-topleft: 5px;*/
-    /*-moz-border-radius-topright: 5px;*/
-    /*-moz-border-radius-bottomright: 0px;*/
-    /*-moz-border-radius-bottomleft: 0;*/
-    /*-webkit-border-top-left-radius: 5px;*/
-    /*-webkit-border-top-right-radius: 5px;*/
-    /*-webkit-border-bottom-right-radius: 0px;*/
-    /*-webkit-border-bottom-left-radius: 0;*/
 }
 .task-nav {
     padding-left: 0 !important;
@@ -241,4 +233,79 @@ table[id^=sortable-backlog] {
 .task-milestone-past {
     background-color: darken(#d9534f, 30%);
     border-color: darken(#d9534f, 40%);
+}
+
+.quick-project {
+  border: 1px solid #bbb;
+  width: 10%;
+  margin-top: 5px ;
+  padding-right: 5px;
+  margin-bottom: 0px;
+  background-color: white;
+  height: 25px;
+  line-height: 25px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+}
+
+td button.btn.btn-xs {
+  padding-right: 0px !important;
+}
+
+.board-scroll {
+    border: solid #F1F1F1 4px;
+    overflow-y: auto;
+    height: 400px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+}
+
+.conversation-scroll {
+    border: solid #F1F1F1 5px;
+    overflow-y: auto;
+    height: 170px;
+    margin-top: 10px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+}
+
+.board-task-header {
+    border: 1px solid #F1F1F1;
+    background-color: #F1F1F1;
+    border:3px solid #F1F1F1;
+    border-bottom: 0;
+    font-color: #444;
+    text-color: #444;
+    color: #444;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom:1px;
+    margin-left: auto ;
+    margin-right: auto ;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+}
+
+.project-dsc {
+  margin:0px;
 }

@@ -11,11 +11,21 @@
             </div>
         </div>
       </form>
-
+      <% if related_page?("projects") && current_user.present? &&
+           (current_user.projects.count > 0)%>
+        <strong class="text-center"> Select Project: </strong>
+        <%= collection_select :project, :id, current_user.projects, :id, :name,
+            {selected: params[:id]},
+            {onchange: "window.location = '/projects/'+ value;", class: "quick-project"}%>
+      <% end %>
       <ul class="nav navbar-nav navbar-right">
-        <li class="<%=active?(root_path) %>"><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Contacts", "#" %></li>
+        <li class="<%=home_active? %>"><%= link_to "Home", root_path %></li>
         <% if current_user.present? %>
+          <% if in_project_board? || in_project_edit? %>
+            <li  class="<%=edit_active?%>">
+              <%= link_to 'Edit', request.path + "/edit" %>
+            </li>
+          <% end %>
           <li class="<%=active?(projects_path) %>">
             <%= link_to "My Projects", projects_path %></li>
           <li class="dropdown">
