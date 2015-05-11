@@ -26,36 +26,30 @@
   <% @tasks.each do |task| %>
   <tbody data-item-id=<%= "#{task.id}" %> class="task-item" >
       <tr class="task-title" >
-        <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="10"><%= task.title %></td>
+        <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="9"><%= task.title %></td>
         <td>
-        <% if state != "Backlog" %>
-            <%= form_for(:task, url: { action: :postpone_task, controller: :tasks}) do |f| %>
-                <%= hidden_field_tag :project_id , @project.id %>
-                <%= hidden_field_tag :id , task.id %>
-                <%= hidden_field_tag :state , state %>
-                <%= button_tag(class: "btn btn-xs") do %>
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"
-                        data-toggle="tooltip" data-placement="left"
-                        title="Postpone (Backlog)" ></span>
-                <%end%>
-                <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
-            <% end %>
-        <% end %>
         </td>
-        <!--
         <td>
+          <% if !(milestone.id == Project.find(task.project_id).first_milestone.id) %>
+          <%= form_for(:task, url: { action: :postpone_task, controller: :tasks}, remote: true) do |f| %>
+              <%= hidden_field_tag :project_id , @project.id %>
+              <%= hidden_field_tag :id , task.id %>
+              <%= hidden_field_tag :state , state %>
+              <%= button_tag(class: "btn btn-xs") do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                      data-toggle="tooltip" data-placement="left"
+                      title="Postpone (Backlog)" ></span>
+              <%end%>
+              <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
+          <% end %>
+        <% else %>
             <button type="button" class="btn btn-xs" >
                 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
             </button>
+        <% end %>
         </td>
         <td>
-            <button type="button" class="btn btn-xs" >
-                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-            </button>
-        </td>
-        -->
-        <td>
-        <%= form_for(:task, url: { action: :send_next_state, controller: :tasks}) do |f| %>
+        <%= form_for(:task, url: { action: :send_next_state, controller: :tasks}, remote: true) do |f| %>
             <%= hidden_field_tag :project_id , @project.id %>
             <%= hidden_field_tag :id , task.id %>
             <%= hidden_field_tag :state , state %>

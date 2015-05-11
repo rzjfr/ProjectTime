@@ -48,12 +48,13 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     case params[:state]
     when "Backlog"
-        @task.state = "Progress"
+        @next_state = "Progress"
     when "Progress"
-        @task.state = "Done"
+        @next_state = "Done"
     when "Done"
-        @task.state = "Archived"
+        @next_state = "Archived"
     end
+    @task.state = @next_state
     @task.milestone_id = @project.current_milestone.id
     respond_to do |format|
       if @task.save

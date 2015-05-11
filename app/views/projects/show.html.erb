@@ -47,5 +47,5 @@
 <%= render partial: "layouts/modal", locals: {resource: "projects/add_milestone"} %>
 <%= render partial: "layouts/modal", locals: {resource: "edit-task", remote: true} %>
 <%= render partial: "layouts/modal", locals: {resource: "edit-milestone", remote: true} %>
-<%= link_to 'Add release', edit_milestone_path(15),
+<%#= link_to 'Add release', edit_milestone_path(15),
   {:remote => true, 'data-target' => "layouts/modal", 'data-target' => '#modal-edit-task'} %>
