@@ -53,7 +53,7 @@ input {
 
 
 .navbar-default {
-  background-color: #AFAFAF;
+  background-color: #393939;
   border-color: #2d272f;
 }
 .navbar-default .navbar-brand {
@@ -170,9 +170,9 @@ input.form-control, button.search-btn {
     background-color: #FAFAFA;
 }
 
-td.title-btn {
-    border: 0px;
-    border-top: 0px solid #ddd;
+td.title-btn, button.btn.btn-xs, td.pull-right {
+    border: 0 !important;
+    border-top: 0 !important;
 }
 
 table.project {
@@ -206,11 +206,12 @@ table[id^=sortable-backlog] {
     margin-bottom: 0px;
     margin-top: 0px;
 }
+
 .task-nav {
     padding-left: 0 !important;
 }
 
-.btn.btn-xs.btn-link.pull-right.remove-milestone {
+.btn.btn-xs.btn-link.pull-right.remove-milestone, .pull-right.remove-milestone {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     border: 0 !important;
@@ -256,7 +257,7 @@ table[id^=sortable-backlog] {
   -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
 }
 
-td button.btn.btn-xs {
+.title-next-btn {
   padding-right: 0px !important;
 }
 
@@ -308,4 +309,15 @@ td button.btn.btn-xs {
 
 .project-dsc {
   margin:0px;
+}
+
+.datepicker { z-index:1111 !important; }
+
+.btn.btn-xs.board-task-header-btn {
+  background-color: #F1F1F1;
+  margin-left: auto;
+}
+
+.light-text{
+  color: #DDD;
 }

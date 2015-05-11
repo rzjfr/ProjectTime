@@ -8,10 +8,11 @@ class MilestonesController < ApplicationController
   def update
     respond_to do |format|
       if @milestone.update(milestone_params)
-        format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
-                      notice: 'Milestone was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Milestone was successfully updated.' }
+        format.js
       else
         format.html { render :edit }
+        format.js
       end
     end
   end
@@ -20,11 +21,10 @@ class MilestonesController < ApplicationController
     @milestone = Milestone.create(milestone_params)
     respond_to do |format|
       if @milestone.errors.messages.empty?
-        format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
-                      notice: 'Milestone was successfully Created.'}
+        format.html { redirect_to :back, notice: 'Milestone was successfully Created.'}
         format.js
       else
-        format.html { redirect_to edit_project_path(params[:milestone][:project_id]),
+        format.html { redirect_to :back,
                       alert: @milestone.errors.full_messages.map { |msg| msg }.join}
         format.js
       end

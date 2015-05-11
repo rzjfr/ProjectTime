@@ -55,7 +55,9 @@
           <strong>Estimate: </strong><%= task.estimate if task.estimate.present?%> <br/>
         </td>
         <td class="pull-right">
-          <%= link_to edit_task_path(task.id), class: "btn btn-default btn-xs" do %>
+          <%= link_to edit_task_path(task.id), {class: "btn btn-default btn-xs", remote: true,
+                                                'data-target' => "layouts/modal",
+                                                'data-target' => '#modal-edit-task'} do %>
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
           <% end %>
         </td>

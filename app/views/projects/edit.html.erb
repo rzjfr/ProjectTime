@@ -12,8 +12,11 @@
 <%= form_for(@project) do |f| %>
     <%= render 'layouts/errors', object: f.object %>
 
-    <%= f.label :name , class: 'control-label' %><br>
-    <%= f.text_field :name , class: 'form-control' %>
+    <div class="form-group">
+      <%= f.label :name , class: 'control-label' %><br>
+      <%= f.text_field :name , class: 'form-control' %>
+      <span class="help-block"></span>
+    </div>
 
     <%= f.label :description , class: 'control-label' %><br>
     <%= f.text_field :description , class: 'form-control' %>

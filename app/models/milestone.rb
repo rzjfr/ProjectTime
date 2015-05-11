@@ -10,7 +10,7 @@ class Milestone < ActiveRecord::Base
 
   def valid_end_date
     if end_date.present? && (end_date < Date.today)
-      errors.add(:end_date, 'must be a passed date.')
+      errors.add(:end_date, 'could not be a passed date.')
     end
   end
 

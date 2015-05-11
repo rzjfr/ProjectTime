@@ -8,10 +8,12 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to edit_project_path(params[:task][:project_id]),
+        format.html { redirect_to :back,
                       notice: "Task was successfully updated. #{undo_link}" }
+        format.js# {render partial: "edit_task"}
       else
         format.html { render :edit }
+        format.js
       end
     end
   end
@@ -21,11 +23,11 @@ class TasksController < ApplicationController
                                           state: 'Backlog'))
     respond_to do |format|
       if @task.errors.messages.empty?
-        format.html { redirect_to edit_project_path(params[:task][:project_id]),
+        format.html { redirect_to :back,
                       notice: 'Task was successfully Created.' }
         format.js
       else
-        format.html { redirect_to edit_project_path(params[:task][:project_id]),
+        format.html { redirect_to :back,
                       alert: @task.errors.full_messages.map { |msg| msg }.join }
         format.js
       end
@@ -55,9 +57,11 @@ class TasksController < ApplicationController
     @task.milestone_id = @project.current_milestone.id
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @project, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @project}
+        format.js
       else
         format.html { redirect_to @project, alert: 'There was an error.' }
+        format.js
       end
     end
   end
@@ -69,10 +73,12 @@ class TasksController < ApplicationController
     @task.milestone_id = @project.current_milestone.id
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @project, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @project}
+        format.js
       else
       byebug
         format.html { redirect_to @project, alert: 'There was an error.' }
+        format.js
       end
     end
   end

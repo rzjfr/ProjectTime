@@ -6,7 +6,18 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h4 class="board-task-header text-center"><strong>Backlog</strong></h4>
+    <h4 class="board-task-header text-center"><strong>Backlog</strong>
+      <button type="button" class="btn btn-xs board-task-header-btn" data-toggle="modal"
+        data-target="#modal-add-task">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"
+          data-toggle="tooltip" data-placement="left" title="Add Task" >
+      </span></button>
+      <button type="button" class="btn btn-xs board-task-header-btn" data-toggle="modal"
+        data-target="#modal-add-milestone">
+        <span class="glyphicon glyphicon-flag" aria-hidden="true"
+          data-toggle="tooltip" data-placement="left" title="Add Milestone" >
+      </span></button>
+    </h4>
     <div class="board-scroll">
       <%= render partial: "task_state_backlog", locals: {state: "Backlog" } %>
     </div>
@@ -30,3 +41,11 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<%= render partial: "layouts/modal", locals: {resource: "projects/add_task"} %>
+<%= render partial: "layouts/modal", locals: {resource: "projects/add_milestone"} %>
+<%= render partial: "layouts/modal", locals: {resource: "edit-task", remote: true} %>
+<%= render partial: "layouts/modal", locals: {resource: "edit-milestone", remote: true} %>
+<%= link_to 'Add release', edit_milestone_path(15),
+  {:remote => true, 'data-target' => "layouts/modal", 'data-target' => '#modal-edit-task'} %>
