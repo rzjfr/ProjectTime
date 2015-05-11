@@ -25,7 +25,7 @@ class MilestonesController < ApplicationController
         format.js
       else
         format.html { redirect_to :back,
-                      alert: @milestone.errors.full_messages.map { |msg| msg }.join}
+                      alert: @milestone.errors.full_messages.map { |msg| "<li>#{msg}</li>" }.join }
         format.js
       end
     end

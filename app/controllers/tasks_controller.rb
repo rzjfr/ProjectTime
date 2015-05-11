@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :destroy]
 
   def edit
+    @project = Project.find(@task.project_id)
   end
 
   def update
@@ -28,7 +29,7 @@ class TasksController < ApplicationController
         format.js
       else
         format.html { redirect_to :back,
-                      alert: @task.errors.full_messages.map { |msg| msg }.join }
+                      alert: @task.errors.full_messages.map { |msg| "<li>#{msg}</li>" }.join }
         format.js
       end
     end
@@ -46,7 +47,7 @@ class TasksController < ApplicationController
   def send_next_state
     @project = Project.find(params[:project_id])
     @task = Task.find(params[:id])
-    case params[:state]
+    case @task.state
     when "Backlog"
         @next_state = "Progress"
     when "Progress"
@@ -54,10 +55,15 @@ class TasksController < ApplicationController
     when "Done"
         @next_state = "Archived"
     end
-    @task.state = @next_state
-    @task.milestone_id = @project.current_milestone.id
+    if (@task.assignee_id.nil? || @task.estimate.nil?)
+      @task.errors.add(:task, "Please fill in estimate and assigned user.")
+    else
+      @task.state = @next_state
+      @task.milestone_id = @project.current_milestone.id
+      @task.save
+    end
     respond_to do |format|
-      if @task.save
+      if !@task.errors.any?
         format.html { redirect_to @project}
         format.js
       else
@@ -77,7 +83,6 @@ class TasksController < ApplicationController
         format.html { redirect_to @project}
         format.js
       else
-      byebug
         format.html { redirect_to @project, alert: 'There was an error.' }
         format.js
       end

@@ -9,11 +9,13 @@
 
     <%= f.label :milestone_id %>
     <%= f.collection_select :milestone_id,
-      Milestone.where('project_id = (?) and end_date >= (?)', @task.project_id, Date.today),
-      :id, :full_title, {prompt: ""}, {class: "form-control"} %>
+      @project.milestone.where.not('end_date < (?) and id != (?)',
+                          Date.today, @project.first_milestone.id),
+      :id, :full_title, {}, {class: "form-control"} %>
 
     <%= f.label :user_id %>
-    <%= f.collection_select :assignee_id, User.where('id not in (?)', Project.find(@task.project_id).user_id),
+    <%= f.collection_select :assignee_id,
+      User.where('id in (?)', @project.project_member.pluck(:user_id)),
       :id, :email, {prompt: ""}, {class: "form-control"}  %>
 
     <%= f.label :estimate %>

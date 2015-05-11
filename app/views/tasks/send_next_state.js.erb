@@ -1,1 +1,11 @@
-$('#sortable-<%=@next_state.downcase%>').append($('tbody[data-item-id=<%=@task.id%>]'))
+<% if (@task.assignee_id.nil? || @task.estimate.nil?) & (@task.state == "Backlog") %>
+    console.log("Please fill in estimate and assigned user.");
+    $.notify({ message: "Please fill in estimate and assigned user." },{ type: 'danger' });
+<% elsif (@task.state == "Archived")%>
+    console.log('tbody[data-item-id=<%=@task.id%>]');
+    $.notify({ message: "Seccessfuly archived" },{ type: 'success' });
+    $('tbody[data-item-id=<%=@task.id%>]').remove();
+<% else %>
+    console.log('#sortable-<%=@next_state.downcase%>');
+    $('#sortable-<%=@next_state.downcase%>').append($('tbody[data-item-id=<%=@task.id%>]'));
+<% end %>

@@ -263,6 +263,7 @@ table[id^=sortable-backlog] {
 
 .board-scroll {
     border: solid #F1F1F1 4px;
+    background-color: #FAFAFA;
     overflow-y: auto;
     height: 400px;
   -moz-border-radius-bottomright: 5px;
@@ -274,6 +275,7 @@ table[id^=sortable-backlog] {
 .conversation-scroll {
     border: solid #F1F1F1 5px;
     overflow-y: auto;
+    background-color: #FAFAFA;
     height: 170px;
     margin-top: 10px;
   -moz-border-radius-topleft: 5px;
@@ -321,3 +323,7 @@ table[id^=sortable-backlog] {
 .light-text{
   color: #DDD;
 }
+
+/*html { background: transparent }*/
+/*html,body{background-color:#221B25;}*/
+/*html,body{background-color:#2D272F;}*/

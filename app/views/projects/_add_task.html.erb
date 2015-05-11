@@ -13,8 +13,9 @@
       :id, :full_title, {prompt: ""}, {class: "form-control"} %>
 
     <%= f.label :user_id %>
-    <%= f.collection_select :assignee_id, User.where('id not in (?)', @project.user_id),
-      :id, :email, {prompt: ""}, {class: "form-control"}  %>
+    <%= f.collection_select :assignee_id,
+      User.where('id in (?) and id != (?)', @project.project_member.pluck(:user_id),
+                 @project.user_id), :id, :email, {prompt: ""}, {class: "form-control"}  %>
 
     <%= f.label :estimate %>
     <%= f.select :estimate, (2..11).map{ |n| fibonaci(n)}, {prompt: ""}, {class: 'form-control'}  %>

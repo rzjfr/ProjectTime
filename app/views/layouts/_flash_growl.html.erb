@@ -1,0 +1,15 @@
+<% flash.each do |message_type, message| %>
+  <% message_type="success" if message_type == "notice" %>
+  <% message_type="danger" if message_type == "alert" %>
+  <script>
+    $.notify({ message: '<%= raw(message.gsub("'","")) %>' },
+             { type: "<%= message_type %>",
+               delay: 8000,
+               animate: {
+                 enter: 'animated fadeInDown', //shake
+                 exit: 'animated fadeOutUp'
+                 },
+                mouse_over: "pause"
+             });
+  </script>
+<% end %>

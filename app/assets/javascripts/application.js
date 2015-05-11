@@ -16,5 +16,6 @@
 //= require jquery-ui/effect-highlight
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require bootstrap-notify
 //= require turbolinks
 //= require_tree .

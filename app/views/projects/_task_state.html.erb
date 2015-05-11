@@ -1,5 +1,5 @@
-<% @tasks = @project.task.rank(:row_order).where(state: state) %>
 <table class="table table-condensed project" id="sortable-<%=state.downcase%>" >
+  <% @tasks = @project.task.rank(:row_order).where(state: state) %>
   <% @tasks.each do |task| %>
   <tbody data-item-id=<%= "#{task.id}" %> class="task-item" >
       <tr class="task-title" >
@@ -19,7 +19,8 @@
           <% end %>
         </td>
         <td>
-        <%= form_for(:task, url: { action: :send_next_state, controller: :tasks}) do |f| %>
+          <%= form_for(:task, url: { action: :send_next_state,
+                                     controller: :tasks}, remote: true) do |f| %>
             <%= hidden_field_tag :project_id , @project.id %>
             <%= hidden_field_tag :id , task.id %>
             <%= hidden_field_tag :state , state %>

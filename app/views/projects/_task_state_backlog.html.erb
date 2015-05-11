@@ -49,7 +49,8 @@
         <% end %>
         </td>
         <td>
-        <%= form_for(:task, url: { action: :send_next_state, controller: :tasks}, remote: true) do |f| %>
+          <%= form_for(:task, url: { action: :send_next_state,
+                                     controller: :tasks}, remote: true) do |f| %>
             <%= hidden_field_tag :project_id , @project.id %>
             <%= hidden_field_tag :id , task.id %>
             <%= hidden_field_tag :state , state %>
