@@ -5,32 +5,14 @@
       <tr class="task-title" >
         <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="10"><%= task.title %></td>
         <td>
-          <%= form_for(:task, url: { action: :postpone_task,
-                                     controller: :tasks}, remote: true) do |f| %>
-              <%= hidden_field_tag :project_id , @project.id %>
-              <%= hidden_field_tag :id , task.id %>
-              <%= hidden_field_tag :state , state %>
-              <%= button_tag(class: "btn btn-xs") do %>
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"
-                      data-toggle="tooltip" data-placement="left"
-                      title="Postpone (Backlog)" ></span>
-              <%end%>
-              <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
-          <% end %>
+            <%= render partial: "task_control_button", locals: { task_id: task.id, state: state,
+                                                       function: "postpone_task",
+                                                       icon: "remove"} %>
         </td>
         <td>
-          <%= form_for(:task, url: { action: :send_next_state,
-                                     controller: :tasks}, remote: true) do |f| %>
-            <%= hidden_field_tag :project_id , @project.id %>
-            <%= hidden_field_tag :id , task.id %>
-            <%= hidden_field_tag :state , state %>
-            <%= button_tag(:class => "btn btn-xs") do %>
-                <span class="glyphicon glyphicon-step-forward" aria-hidden="true"
-                    data-toggle="tooltip" data-placement="left"
-                    title="Goto Next State"></span>
-            <% end %>
-            <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
-        <% end %>
+            <%= render partial: "task_control_button", locals: { task_id: task.id, state: state,
+                                                       function: "send_next_state",
+                                                       icon: "step-forward"} %>
         </td>
       </tr>
       <tr id="<%="task-#{task.id}"%>" class="task-detail collapse out" >

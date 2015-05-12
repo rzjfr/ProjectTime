@@ -1,12 +1,15 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, only: [:edit, :update, :destroy]
+  after_action :verify_authorized, except: [:create]
 
   def edit
+    authorize @task
     @project = Project.find(@task.project_id)
   end
 
   def update
+    authorize @task
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to :back,
@@ -36,6 +39,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    authorize @task
     @task.destroy
     respond_to do |format|
       format.html { redirect_to :back,
@@ -47,6 +51,7 @@ class TasksController < ApplicationController
   def send_next_state
     @project = Project.find(params[:project_id])
     @task = Task.find(params[:id])
+    authorize @task
     case @task.state
     when "Backlog"
         @next_state = "Progress"
@@ -76,7 +81,24 @@ class TasksController < ApplicationController
   def postpone_task
     @project = Project.find(params[:project_id])
     @task = Task.find(params[:id])
+    authorize @task
     @task.state = "Backlog"
+    @task.milestone_id = @project.first_milestone.id
+    respond_to do |format|
+      if @task.save
+        format.html { redirect_to @project}
+        format.js
+      else
+        format.html { redirect_to @project, alert: 'There was an error.' }
+        format.js
+      end
+    end
+  end
+
+  def send_current_milestone
+    @project = Project.find(params[:project_id])
+    @task = Task.find(params[:id])
+    authorize @task
     @task.milestone_id = @project.current_milestone.id
     respond_to do |format|
       if @task.save
@@ -91,6 +113,7 @@ class TasksController < ApplicationController
 
   def update_row_order
     @task = Task.find(task_params[:task_id])
+    authorize @task
     @task.row_order_position = task_params[:row_order_position]
     @task.save
 

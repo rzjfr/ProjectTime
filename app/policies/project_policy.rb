@@ -7,7 +7,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? or (user.id == project.user_id)
+    user.admin? or (project.members_ids.include? user.id)
   end
 
   def project_board?

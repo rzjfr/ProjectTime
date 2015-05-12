@@ -1,0 +1,12 @@
+<%= form_for(:task, url: { action: function.to_sym,
+                            controller: :tasks}, remote: true,
+                            html:{id: "#{function.gsub("_", "-")}"}) do |f| %>
+    <%= hidden_field_tag :project_id , @project.id %>
+    <%= hidden_field_tag :id , task_id %>
+    <%= hidden_field_tag :state , state %>
+    <%= button_tag(class: "btn btn-xs") do %>
+        <span class="glyphicon glyphicon-<%= icon %>" aria-hidden="true"
+            data-toggle="tooltip" data-placement="left"
+            title="<%=function.gsub("_", " ")%>" ></span>
+    <%end%>
+<% end %>

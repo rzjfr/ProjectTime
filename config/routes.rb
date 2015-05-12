@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :tasks do
     collection do
       post :send_next_state
+      post :send_current_milestone
       post :postpone_task
       post :update_row_order
     end

@@ -54,6 +54,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project_members = @project.project_member
+    @project_tasks = @project.task.order(:created_at).page params[:page]
     authorize @project
   end
 

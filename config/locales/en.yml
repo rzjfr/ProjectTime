@@ -30,3 +30,11 @@ en:
       destroy?: "You can only remove your own projects."
       statistics?: "You can only see your own projects."
       searches?: "You can only see your own projects."
+    task_policy:
+      edit?: "You can only edit your own project tasks."
+      update?: "You can only update your own project tasks."
+      destroy?: "You can only remove your own tasks."
+    milestone_policy:
+      edit?: "You can not edit milestones in projects which you do not own."
+      update?: "You can not update milestones in projects which you do not own."
+      destroy?: "You can not remove milestones in projects which you do not own."

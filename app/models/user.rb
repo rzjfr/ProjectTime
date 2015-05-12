@@ -9,4 +9,18 @@ class User < ActiveRecord::Base
     self.admin
   end
 
+  def member_projects
+    Project.where('id in (?)', ProjectMember.where('user_id in (?)',
+                                                   self.id).pluck(:project_id))
+  end
+
+  def owned_projects_ids
+    self.projects.pluck(:id)
+  end
+
+  def member_projects_ids
+    self.member_projects.pluck(:id)
+  end
+
+
 end

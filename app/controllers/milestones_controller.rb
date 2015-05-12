@@ -1,11 +1,14 @@
 class MilestonesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_milestone, only: [:edit, :update, :destroy]
+  after_action :verify_authorized, except: [:create]
 
   def edit
+    authorize @milestone
   end
 
   def update
+    authorize @milestone
     respond_to do |format|
       if @milestone.update(milestone_params)
         format.html { redirect_to :back, notice: 'Milestone was successfully updated.' }
@@ -18,7 +21,12 @@ class MilestonesController < ApplicationController
   end
 
   def create
-    @milestone = Milestone.create(milestone_params)
+    @milestone = Milestone.new
+    if current_user.owned_projects_ids.include?(params[:milestone][:project_id])
+      @milestone = Milestone.create(milestone_params)
+    else
+      @milestone.errors.add(:milestone, "can created only by owner of the project.")
+    end
     respond_to do |format|
       if @milestone.errors.messages.empty?
         format.html { redirect_to :back, notice: 'Milestone was successfully Created.'}
@@ -32,6 +40,7 @@ class MilestonesController < ApplicationController
   end
 
   def destroy
+    authorize @milestone
     @project = Project.find(params[:project_id])
     Task.where(milestone_id: @milestone.id).update_all(milestone_id:
                                                        @project.first_milestone.id)

@@ -6,7 +6,7 @@ class ProjectMembersController < ApplicationController
     @project = Project.find(params[:project_member][:project_id])
     @project.add_project_member(@user, @project)
     respond_to do |format|
-      format.html { redirect_to @project }
+      format.html { redirect_to :back, notice: "User Successfuly added." }
       format.js
     end
   end
@@ -16,7 +16,7 @@ class ProjectMembersController < ApplicationController
     @project = Project.find(params[:project_id])
     @project.remove_project_member(@user, @project)
     respond_to do |format|
-      format.html { redirect_to @project }
+      format.html { redirect_to :back, notice: "User Removed!" }
       format.js
     end
   end

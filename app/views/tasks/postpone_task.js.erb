@@ -1,1 +1,2 @@
 $('#sortable-backlog-<%=@task.milestone_id%>').append($('tbody[data-item-id=<%=@task.id%>]'))
+$('tbody[data-item-id=<%=@task.id%>] form[id=postpone-task]').replaceWith("<%= escape_javascript render partial: "projects/task_control_button", locals: { task_id: @task.id, state: @task.state, function: "send_current_milestone", icon: "arrow-down"} %>")

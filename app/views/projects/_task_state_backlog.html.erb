@@ -1,6 +1,7 @@
 <% @milestones_board.each do |milestone| %>
     <% if @project.uses_milestones? %>
         <h5 class="task-milestone-<%=milestone.date_state_in_words%> text-center">
+            <% if policy(milestone).destroy? %>
             <%= form_for(milestone, html: { method: :delete }) do |f| %>
                 <%= hidden_field_tag :project_id , @project.id %>
                 <%= button_tag(class: "btn btn-xs btn-link pull-right remove-milestone",
@@ -10,12 +11,14 @@
                         title="Remove milestone" ></span>
                 <%end%>
             <% end %>
-          <%= link_to edit_milestone_path(milestone.id), {class: "pull-right remove-milestone", remote: true,
-                                                'data-target' => "layouts/modal",
+            <%= link_to edit_milestone_path(milestone.id), {class: "pull-right remove-milestone",
+                                                            remote: true,
+                                                            'data-target' => "layouts/modal",
                                                 'data-target' => '#modal-edit-milestone'} do %>
             <span class="glyphicon glyphicon-cog" aria-hidden="true"
                         data-toggle="tooltip" data-placement="left"
                         title="Edit milestone" ></span>
+          <% end %>
           <% end %>
             <strong> Milestone: </strong>
             <%= milestone.full_title %>
@@ -31,36 +34,19 @@
         </td>
         <td>
           <% if !(milestone.id == Project.find(task.project_id).first_milestone.id) %>
-          <%= form_for(:task, url: { action: :postpone_task, controller: :tasks}, remote: true) do |f| %>
-              <%= hidden_field_tag :project_id , @project.id %>
-              <%= hidden_field_tag :id , task.id %>
-              <%= hidden_field_tag :state , state %>
-              <%= button_tag(class: "btn btn-xs") do %>
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"
-                      data-toggle="tooltip" data-placement="left"
-                      title="Postpone (Backlog)" ></span>
-              <%end%>
-              <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
-          <% end %>
+            <%= render partial: "task_control_button", locals: { task_id: task.id, state: state,
+                                                       function: "postpone_task",
+                                                       icon: "remove"} %>
         <% else %>
-            <button type="button" class="btn btn-xs" >
-                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-            </button>
+            <%= render partial: "task_control_button", locals: { task_id: task.id, state: state,
+                                                       function: "send_current_milestone",
+                                                       icon: "arrow-down"} %>
         <% end %>
         </td>
         <td>
-          <%= form_for(:task, url: { action: :send_next_state,
-                                     controller: :tasks}, remote: true) do |f| %>
-            <%= hidden_field_tag :project_id , @project.id %>
-            <%= hidden_field_tag :id , task.id %>
-            <%= hidden_field_tag :state , state %>
-            <%= button_tag(:class => "btn btn-xs") do %>
-                <span class="glyphicon glyphicon-step-forward" aria-hidden="true"
-                    data-toggle="tooltip" data-placement="left"
-                    title="Goto Next State"></span>
-            <% end %>
-            <%#= f.submit "Dey", class: "btn btn-xs" , data: { disable_with: "" } %>
-        <% end %>
+            <%= render partial: "task_control_button", locals: { task_id: task.id, state: state,
+                                                       function: "send_next_state",
+                                                       icon: "step-forward"} %>
         </td>
       </tr>
       <tr id="<%="task-#{task.id}"%>" class="task-detail collapse out" >

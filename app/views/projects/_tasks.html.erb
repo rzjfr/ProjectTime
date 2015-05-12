@@ -12,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @project.task.each do |task| %>
+    <% @project_tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
         <td><%= Milestone.find(task.milestone_id).full_title if task.milestone_id.present?%></td>
@@ -29,5 +29,8 @@
     <% end %>
   </tbody>
 </table>
+<div class="text-center">
+    <%= paginate @project_tasks %>
+</div>
 
 <br>

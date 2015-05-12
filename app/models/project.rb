@@ -53,4 +53,8 @@ class Project < ActiveRecord::Base
     self.task.each.map { |x| x.id if !x.last_changes.nil? }.compact
   end
 
+  def members_ids
+    self.project_member.pluck(:user_id)
+  end
+
 end
