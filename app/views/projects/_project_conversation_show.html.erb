@@ -1,0 +1,7 @@
+<% @project_conversation.each do |conversation| %>
+  <p>
+    <em>[<%=conversation.created_at%>]</em>
+    <strong><%=conversation.user.email%>: </strong>
+    <%=conversation.content%>
+  </p>
+<%end%>

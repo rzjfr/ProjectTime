@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :project_members, only: [:create, :destroy]
+  resources :project_conversations, only: [:create, :destroy]
   resources :milestones, only: [:create, :destroy, :update, :edit]
   resources :tasks, only: [:create, :destroy, :update, :edit]
   resources :tasks do

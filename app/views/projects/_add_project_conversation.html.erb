@@ -1,0 +1,9 @@
+<%= form_for(@project.project_conversation.new) do |f| %>
+    <%= render 'layouts/errors', object: f.object %>
+
+    <%= f.text_field :content , class: 'form-control' %>
+    <%= f.hidden_field :project_id, value: @project.id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+
+    <%= f.submit "send", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
+<% end %>

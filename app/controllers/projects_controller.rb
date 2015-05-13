@@ -38,6 +38,7 @@ class ProjectsController < ApplicationController
     @milestones_board = @milestones.where.not("end_date < (?) and id != (?)",
                                               Date.today,
                                               @project.first_milestone.id)
+    @project_conversation = @project.project_conversation
   end
 
   def statistics

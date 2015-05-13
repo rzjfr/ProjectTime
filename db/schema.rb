@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509175122) do
+ActiveRecord::Schema.define(version: 20150513213108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(version: 20150509175122) do
   end
 
   add_index "milestones", ["project_id"], name: "index_milestones_on_project_id", using: :btree
+
+  create_table "project_conversations", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "project_conversations", ["project_id"], name: "index_project_conversations_on_project_id", using: :btree
+  add_index "project_conversations", ["user_id"], name: "index_project_conversations_on_user_id", using: :btree
 
   create_table "project_members", force: :cascade do |t|
     t.integer  "project_id"
@@ -96,6 +107,8 @@ ActiveRecord::Schema.define(version: 20150509175122) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "milestones", "projects"
+  add_foreign_key "project_conversations", "projects"
+  add_foreign_key "project_conversations", "users"
   add_foreign_key "project_members", "projects"
   add_foreign_key "project_members", "users"
   add_foreign_key "projects", "users"
