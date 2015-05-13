@@ -1,9 +1,9 @@
 <%= form_for(@project.milestone.build) do |f| %>
     <%= render 'layouts/errors', object: f.object %>
 
-    <%= f.label :title %>
+    <%= f.label :title , class: 'control-label'%>
     <%= f.text_field :title , class: 'form-control' %>
-    <%= f.label :end_date %>
+    <%= f.label :end_date , class: 'control-label'%>
     <%= f.text_field :end_date , class: 'datepicker', readonly: "readonly" %>
     <%= f.hidden_field :project_id, value: @project.id %>
 

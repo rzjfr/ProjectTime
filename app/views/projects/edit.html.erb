@@ -1,12 +1,11 @@
 <h1>List Projects</h1>
+<h2>
+  <strong>Owner:</strong>
+  <%= @project.user.email %>
+</h2>
 <%= collection_select :project, :id, current_user.projects, :id, :name,
     {:selected => params[:id]},
     {:onchange => "window.location = '/projects/'+ value;", class: "form-control"}%>
-<p>
-<p>
-  <strong>Owner:</strong>
-  <%= @project.user.email %>
-</p>
 
 <h1>Editing Project</h1>
 <%= form_for(@project) do |f| %>
@@ -23,8 +22,6 @@
 
     <%= f.submit "Apply changes", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
 <% end %>
-
-
 
 <div class="row">
   <div class="col-md-6">

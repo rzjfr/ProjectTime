@@ -1,7 +1,7 @@
 <%= form_for(@project.project_member.new) do |f| %>
     <%= render 'layouts/errors', object: f.object %>
 
-    <%= f.label :user_id %>
+    <%= f.label :user_id , class: 'control-label'%>
     <%= f.collection_select :user_id, User.where('id not in (?)', @project.user_id), :id, :email, {}, {class: "form-control"}  %>
     <%= f.hidden_field :project_id, value: @project.id %>
 

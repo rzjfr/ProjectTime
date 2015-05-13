@@ -1,23 +1,23 @@
 <%= form_for(@project.task.build) do |f| %>
     <%= render 'layouts/errors', object: f.object %>
 
-    <%= f.label :title %>
+    <%= f.label :title , class: 'control-label'%>
     <%= f.text_field :title , class: 'form-control' %>
 
-    <%= f.label :description %>
+    <%= f.label :description, class: 'control-label' %>
     <%= f.text_field :description , class: 'form-control' %>
 
-    <%= f.label :milestone_id %>
+    <%= f.label :milestone_id , class: 'control-label'%>
     <%= f.collection_select :milestone_id,
       Milestone.where('project_id = (?) and end_date > (?)', @project.id, Date.today),
       :id, :full_title, {prompt: ""}, {class: "form-control"} %>
 
-    <%= f.label :user_id %>
+    <%= f.label :user_id , class: 'control-label'%>
     <%= f.collection_select :assignee_id,
       User.where('id in (?) and id != (?)', @project.project_member.pluck(:user_id),
                  @project.user_id), :id, :email, {prompt: ""}, {class: "form-control"}  %>
 
-    <%= f.label :estimate %>
+    <%= f.label :estimate , class: 'control-label'%>
     <%= f.select :estimate, (2..11).map{ |n| fibonaci(n)}, {prompt: ""}, {class: 'form-control'}  %>
 
     <%= f.hidden_field :project_id, value: @project.id %>

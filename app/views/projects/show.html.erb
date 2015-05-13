@@ -3,9 +3,9 @@
 <p class="project-dsc"><small><strong>Description:</strong> <%#= @project.description %></small></p>
 <p class="project-dsc"><small><strong>Owner:</strong> <%#= @project.user.email %></small></p>
 -->
-
+<div class="container">
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4 project-board">
     <h4 class="board-task-header text-center"><strong>Backlog</strong>
       <button type="button" class="btn btn-xs board-task-header-btn" data-toggle="modal"
         data-target="#modal-add-task">
@@ -22,13 +22,13 @@
       <%= render partial: "task_state_backlog", locals: {state: "Backlog" } %>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4 project-board">
     <h4 class="board-task-header text-center"><strong>In Progress</strong></h4>
     <div class="board-scroll">
       <%= render partial: "task_state", locals: {state: "Progress" } %>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4 project-board">
     <h4 class="board-task-header text-center"><strong>Done</strong></h4>
     <div class="board-scroll">
       <%= render partial: "task_state", locals: {state: "Done" } %>
@@ -36,12 +36,12 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 project-conversation">
     <div class="conversation-scroll">
     </div>
   </div>
 </div>
-
+</div>
 <!-- Modal -->
 <%= render partial: "layouts/modal", locals: {resource: "projects/add_task"} %>
 <%= render partial: "layouts/modal", locals: {resource: "projects/add_milestone"} %>
