@@ -37,9 +37,12 @@
 </div>
 <div class="row">
   <div class="col-md-12 project-conversation">
-    <div class="load-more text-center"></div>
-    <div class="conversation-scroll">
-      <%= render partial: "project_conversation", collection: @project_conversations %>
+    <div class="conversation-box">
+      <div class="load-more text-center"></div>
+      <div class="conversation-scroll">
+        <%= render partial: "project_conversation",
+          collection: @project_conversations.sort { |x,y| x.created_at <=> y.created_at } %>
+      </div>
       <%= render "add_project_conversation" %>
       <div class="hidden">
         <%= paginate @project_conversations %>

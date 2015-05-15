@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
     @milestones_board = @milestones.where.not("end_date < (?) and id != (?)",
                                               Date.today,
                                               @project.first_milestone.id)
-    @project_conversations = @project.project_conversation.order('created_at DESC').page params[:page]
+    @project_conversations = @project.project_conversation.order('created_at ASC') .page params[:page]
 
     respond_to do |format|
       format.js
