@@ -22,10 +22,10 @@ class MilestonesController < ApplicationController
 
   def create
     @milestone = Milestone.new
-    if current_user.owned_projects_ids.include?(params[:milestone][:project_id])
+    if current_user.owned_projects_ids.include?(params[:milestone][:project_id].to_i)
       @milestone = Milestone.create(milestone_params)
     else
-      @milestone.errors.add(:milestone, "can created only by owner of the project.")
+      @milestone.errors.add(:milestone, "could be created only by the owner of the project.")
     end
     respond_to do |format|
       if @milestone.errors.messages.empty?

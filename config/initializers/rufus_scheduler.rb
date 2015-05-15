@@ -8,7 +8,7 @@ SCHEDULER.every("1h") do
         if !milestone.task.empty?
             puts "All tasks for " + milestone.full_title + " assigned to "
             Task.where(milestone_id: milestone.id,
-                       state: "Backlog").update_all(milestone_id: first_id)
+                       state: "Backlog").update_all(milestone_id: current_id)
             Task.where(milestone_id: milestone.id, state:
                        "Progress").update_all(milestone_id: current_id)
             Task.where(milestone_id: milestone.id,

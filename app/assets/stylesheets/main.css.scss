@@ -395,3 +395,14 @@ h2 {
   -webkit-border-bottom-right-radius: 5px;
   -webkit-border-bottom-left-radius: 5px;
 }
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.conversation-box {
+    padding: 10px;
+    margin-right: 15x;
+    margin-left: 15px;
+}

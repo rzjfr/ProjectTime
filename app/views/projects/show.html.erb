@@ -37,13 +37,18 @@
 </div>
 <div class="row">
   <div class="col-md-12 project-conversation">
+    <div class="load-more text-center"></div>
     <div class="conversation-scroll">
-      <%= render "project_conversation_show" %>
+      <%= render partial: "project_conversation", collection: @project_conversations %>
       <%= render "add_project_conversation" %>
+      <div class="hidden">
+        <%= paginate @project_conversations %>
+      </div>
     </div>
   </div>
 </div>
 </div>
+
 <!-- Modal -->
 <%= render partial: "layouts/modal", locals: {resource: "projects/add_task"} %>
 <%= render partial: "layouts/modal", locals: {resource: "projects/add_milestone"} %>
