@@ -8,7 +8,9 @@ class Project < ActiveRecord::Base
   validates :name, length: { maximum: 20 }, presence: true
   validates :user_id, presence: true
   validate :uniqueness_in_scope
+
   before_save { self.name = self.name.downcase }
+
   after_create {
     self.add_project_member(User.find(self.user_id), self)
     Milestone.create(title: (self.name + " project start"),

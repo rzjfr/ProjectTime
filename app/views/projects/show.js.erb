@@ -1,9 +1,9 @@
 $(".conversation-scroll").prepend("<%= j(render partial: "project_conversation", collection: @project_conversations.sort { |x,y| x.created_at <=> y.created_at } )%>");
+$('.load-more').hide()
 <% if @project_conversations.last_page? %>
     $(".conversation-scroll").off('scroll');
     $('.pagination').remove();
 <% else %>
-    $('.load-more').hide()
     $('.pagination').replaceWith('<%= j(paginate @project_conversations) %>');
     $(".conversation-scroll").animate({ scrollTop: 40 }, "slow");
 <% end %>

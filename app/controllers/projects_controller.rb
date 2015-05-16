@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
       if @user_tasks.empty?
         @project = current_user.projects.order(:updated_at).last
       else
-        @project = current_user.projects.find(@user_tasks.order(:updated_at).last.project_id)
+        @project = Project.find(@user_tasks.order(:updated_at).last.project_id)
       end
       redirect_to @project
     end

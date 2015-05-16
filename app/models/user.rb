@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :projects, dependent: :destroy
   has_many :project_conversation, dependent: :destroy
+  has_many :message, dependent: :destroy
+  has_many :recived, class_name: "Message", foreign_key: "reciver_id", dependent: :destroy
 
   def admin?
     self.admin
@@ -22,6 +24,5 @@ class User < ActiveRecord::Base
   def member_projects_ids
     self.member_projects.pluck(:id)
   end
-
 
 end

@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513213108) do
+ActiveRecord::Schema.define(version: 20150516123831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "project_conversation_id"
+    t.integer  "user_id"
+    t.integer  "reciver_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "messages", ["project_conversation_id"], name: "index_messages_on_project_conversation_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "milestones", force: :cascade do |t|
     t.integer  "project_id"
@@ -106,6 +117,8 @@ ActiveRecord::Schema.define(version: 20150513213108) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "messages", "project_conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "milestones", "projects"
   add_foreign_key "project_conversations", "projects"
   add_foreign_key "project_conversations", "users"

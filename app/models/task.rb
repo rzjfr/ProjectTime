@@ -2,7 +2,7 @@ class Task < ActiveRecord::Base
   include RankedModel
   ranks :row_order, :with_same => :milestone_id
 
-  has_paper_trail# :on => [:destroy, :create, :update]
+  has_paper_trail :ignore => [:row_order]
 
   belongs_to :project
   validates :project_id, presence: true
