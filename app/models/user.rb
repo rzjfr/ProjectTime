@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :project_conversation, dependent: :destroy
   has_many :message, dependent: :destroy
   has_many :recived, class_name: "Message", foreign_key: "reciver_id", dependent: :destroy
+  has_many :task, class_name: "Task", foreign_key: "creator_id"
+  has_many :assigned, class_name: "Task", foreign_key: "assignee_id"
 
   def admin?
     self.admin

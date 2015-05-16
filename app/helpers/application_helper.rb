@@ -40,6 +40,20 @@ module ApplicationHelper
     ids = []
     Task.where("id in (?)", task_ids).pluck(:creator_id, :assignee_id).map {|x| ids.concat x}
     #ids.concat User.where("id in (?)", user_ids).pluck(:id)
-    ids.uniq.reject {|x| x.nil?}
+    ids.uniq.reject {|x| x.nil? or x == conversation.user_id }
+  end
+
+  def message_reason(conversation, user)
+    reason = []
+    reason.append "owner" if (mentioned_tasks_ids(conversation.project,
+                                                  conversation.content) &
+                              user.task.pluck(:id)).present?
+    reason.append "assigned" if (mentioned_tasks_ids(conversation.project,
+                                                     conversation.content) &
+                                 user.assigned.pluck(:id)).present?
+    #reason.append "mentioned" if (mentioned_members_ids(conversation.project,
+                                  #conversation.content).include? user.id)
+    reason.append "concerned" if reason.empty?
+    reason.join(" and ")
   end
 end

@@ -1,0 +1,29 @@
+<h1>Message Sent</h1>
+<% messages = current_user.message.order("created_at DESC").page(params[:page]) %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Reciver</th>
+      <th>Project</th>
+      <th>Content</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% messages.each do |message| %>
+      <tr>
+        <td> <%= User.find(message.reciver_id).email %> </td>
+        <td> <%=link_to message.project_conversation.project.name,
+          project_path(message.project_conversation.project_id) %> </td>
+        <td> <%= message.project_conversation.content %> </td>
+        <td> <%= message.created_at %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="text-center">
+  <%= paginate messages %>
+</div>
+<br>

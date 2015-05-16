@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'inbox' => 'messages#inbox'
+  get 'sent'  => 'messages#sent'
+
   unauthenticated do
     devise_scope :user do
       root 'welcome#index'
