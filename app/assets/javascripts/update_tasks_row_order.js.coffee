@@ -10,7 +10,7 @@ jQuery ->
   console.log(IDs)
   IDs.forEach (tag, i) ->
     jQuery ->
-      console.log("#"+tag)
+      #console.log("#"+tag)
       if $("#"+tag).length > 0
         $("#"+tag).sortable(
           axis: 'y'

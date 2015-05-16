@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
   include RankedModel
-  ranks :row_order, :with_same => :milestone_id
+  ranks :row_order, :with_same => :task_class
 
   has_paper_trail :ignore => [:row_order]
 
@@ -17,6 +17,7 @@ class Task < ActiveRecord::Base
 
   before_save {
     self.title = self.title.downcase
+    self.task_class = self.project_id.to_s + self.state + self.milestone_id.to_s
     if self.milestone_id.nil?
       self.milestone_id = Project.find(self.project_id).current_milestone.id
     end
