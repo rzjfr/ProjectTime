@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, path: '',
+  devise_for :users, path: '', controllers: {registrations: 'registrations'},
     :path_names => {sign_up: "signup", sign_in: "login", sign_out: "logout"}
 
   post "versions/:id/revert" => "versions#revert", as: "revert_version"

@@ -5,8 +5,8 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
-        <%= f.label :email, class: 'control-label' %>
-        <%= f.email_field :email, autofocus: true, class: 'form-control'  %>
+        <%= f.label "User name or Email address", class: 'control-label' %>
+        <%= f.text_field :login, autofocus: true, class: 'form-control'  %>
 
         <%= f.label :password, class: 'control-label' %>
         <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>

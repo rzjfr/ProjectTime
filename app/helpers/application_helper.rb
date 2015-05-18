@@ -24,8 +24,9 @@ module ApplicationHelper
   end
 
   def mentioned_members_ids(project, message)
-    titles = (project.project_member.pluck(:title) & message.scan(/@\w+/).map{|x| x[1..-1]})
-    project.project_member.where("username in (?)", titles).pluck(:id)
+    User.where("id in (?) and username in (?)",
+               project.members_ids,
+               message.scan(/@\w+/).map{|x| x[1..-1]}).pluck(:id)
   end
 
   def mentioned_tasks_ids(project, message)
@@ -36,10 +37,10 @@ module ApplicationHelper
   def all_relative_ids(conversation)
     project = Project.find(conversation.project_id)
     task_ids = mentioned_tasks_ids(project, conversation.content)
-    #user_ids = mentioned_members_ids(project, conversation.content)
+    user_ids = mentioned_members_ids(project, conversation.content)
     ids = []
     Task.where("id in (?)", task_ids).pluck(:creator_id, :assignee_id).map {|x| ids.concat x}
-    #ids.concat User.where("id in (?)", user_ids).pluck(:id)
+    ids.concat User.where("id in (?)", user_ids).pluck(:id)
     ids.uniq.reject {|x| x.nil? or x == conversation.user_id }
   end
 
@@ -51,8 +52,8 @@ module ApplicationHelper
     reason.append "assigned" if (mentioned_tasks_ids(conversation.project,
                                                      conversation.content) &
                                  user.assigned.pluck(:id)).present?
-    #reason.append "mentioned" if (mentioned_members_ids(conversation.project,
-                                  #conversation.content).include? user.id)
+    reason.append "mentioned" if (mentioned_members_ids(conversation.project,
+                                  conversation.content).include? user.id)
     reason.append "concerned" if reason.empty?
     reason.join(" and ")
   end
