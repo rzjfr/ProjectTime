@@ -60,4 +60,8 @@ class Project < ActiveRecord::Base
     self.project_member.pluck(:user_id)
   end
 
+  def members
+    User.where("id in (?)", self.project_member.pluck(:user_id))
+  end
+
 end

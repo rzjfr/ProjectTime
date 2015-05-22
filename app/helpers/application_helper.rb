@@ -30,8 +30,8 @@ module ApplicationHelper
   end
 
   def mentioned_tasks_ids(project, message)
-    titles = (project.task.pluck(:title) & message.scan(/#\w+/).map{|x| x[1..-1]})
-    project.task.where("title in (?)", titles).pluck(:id)
+    titles = (project.task.pluck(:title_digest) & message.scan(/#\w+/).map{|x| x[1..-1]})
+    project.task.where("title_digest in (?)", titles).pluck(:id)
   end
 
   def all_relative_ids(conversation)
@@ -56,5 +56,9 @@ module ApplicationHelper
                                   conversation.content).include? user.id)
     reason.append "concerned" if reason.empty?
     reason.join(" and ")
+  end
+
+  def mention_link(input)
+    input.gsub(/#\w+/,'<a href="#">\\0</a>').gsub(/@\w+/,'<a href="#">\\0</a>')
   end
 end

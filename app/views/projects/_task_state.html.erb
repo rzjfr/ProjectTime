@@ -1,7 +1,7 @@
 <table class="table table-condensed project" id="sortable-<%=state.downcase%>" >
   <% @tasks = @project.task.rank(:row_order).where(state: state) %>
   <% @tasks.each do |task| %>
-  <tbody data-item-id=<%= "#{task.id}" %> class="task-item" >
+  <tbody data-item-id=<%= "#{task.id}" %> class="task-item" digest="<%=task.title_digest%>" >
       <tr class="task-title" >
         <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="10"><%= task.title %></td>
         <td>

@@ -15,12 +15,25 @@ class Task < ActiveRecord::Base
   scope :progress, -> {where(state: "Progress" )}
   scope :backlog, -> {where(state: "Backlog" )}
 
+  before_create {
+    self.title_digest = self.title.downcase.gsub(/[aeiou\d\s\W]/, "")[0..9] +
+                        Digest::SHA1.hexdigest(self.title)[0..3]
+    if Task.all.pluck(:title_digest).include? self.title_digest
+      self.title_digest = self.title_digest[0..4] +
+                          Digest::SHA1.hexdigest([Time.now, rand].join)[0..9]
+    end
+  }
+
   before_save {
     self.title = self.title.downcase
     self.task_class = self.project_id.to_s + self.state + self.milestone_id.to_s
     if self.milestone_id.nil?
       self.milestone_id = Project.find(self.project_id).current_milestone.id
     end
+  }
+
+  after_create {
+    self.update_attribute :row_order_position, :last
   }
 
   def valid_assignee

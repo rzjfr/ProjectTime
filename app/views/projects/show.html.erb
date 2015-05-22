@@ -59,3 +59,47 @@
 <%= render partial: "layouts/modal", locals: {resource: "edit-milestone", remote: true} %>
 <%#= link_to 'Add release', edit_milestone_path(15),
   {:remote => true, 'data-target' => "layouts/modal", 'data-target' => '#modal-edit-task'} %>
+<script type="text/javascript">
+$(document).ready(function() {
+    var usernames = eval("['<%= j(@project.members.pluck(:username).join("', '")).html_safe%>']");
+    var username_emails = eval("['<%= j(@project.members.pluck(:email).join("', '")).html_safe%>']");
+    var usernames = $.map(usernames,function(value,i) {
+      return {'id':i,'username':usernames[i], 'email':username_emails[i]};
+    });
+    $("#project_conversation_content").atwho({
+        at: "@",
+        data: usernames,
+        insertTpl: "${atwho-at}${username}",
+        searchKey: "username",
+        displayTpl: "<li>${username} <small>${email}</small></li>",
+        limit: 20
+    });
+
+    var tasks = eval("['<%= j(@project.task.pluck(:title_digest).join("', '")).html_safe%>']");
+    <% task_titles= @project.task.pluck(:title).map {|x| x.gsub(/[\"\']/,"")} %>
+    var task_titles = eval("['<%= j(task_titles.join("', '")).html_safe%>']");
+    var tasks = $.map(tasks, function(value,i) {
+      return {'id':i,'digest':tasks[i], 'title':task_titles[i]};
+    });
+
+    $("#project_conversation_content").atwho({
+        at: "#",
+        data: tasks,
+        insertTpl: "${atwho-at}${digest}",
+        searchKey: "title",
+        displayTpl: "<li>${title} <small>#${digest}</small></li>",
+        limit: 100
+    });
+
+    var dropped = false;
+    $("#project_conversation_content").droppable({
+        activeClass: 'active',
+        hoverClass:'hovered',
+        drop:function(event, ui){
+            dropped = true;
+            var value = $("#project_conversation_content").val();
+            $(event.target).val(value + " #" + ui.draggable.attr('digest'));
+        }
+    });
+});
+</script>

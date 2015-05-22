@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :recived, class_name: "Message", foreign_key: "reciver_id", dependent: :destroy
   has_many :task, class_name: "Task", foreign_key: "creator_id"
   has_many :assigned, class_name: "Task", foreign_key: "assignee_id"
-  validates :username, uniqueness: { case_sensitive: false }, length: {minimum: 3, maximum: 10}
+  validates :username, uniqueness: { case_sensitive: false }, presence: true, length: {minimum: 3, maximum: 10}
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

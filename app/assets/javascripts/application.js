@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/sortable
+//= require jquery-ui/droppable
 //= require jquery-ui/effect-highlight
 //= require bootstrap
 //= require bootstrap-datepicker

@@ -5,5 +5,5 @@ $('.load-more').hide()
     $('.pagination').remove();
 <% else %>
     $('.pagination').replaceWith('<%= j(paginate @project_conversations) %>');
-    $(".conversation-scroll").animate({ scrollTop: 40 }, "slow");
+    $(".conversation-scroll").animate({ scrollTop: 50 }, "fast");
 <% end %>
