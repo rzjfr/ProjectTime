@@ -1,0 +1,6 @@
+<% push_block project_channel(params[:project_conversation][:project_id]) do %>
+  $('.conversation-scroll').append('<%= j(render(partial: "projects/project_conversation",
+                                                 locals:{project_conversation: @project_conversations})) %>');
+  $('.conversation-scroll').scrollTop($('.conversation-scroll')[0].scrollHeight);
+<% end %>
+$('#project_conversation_content').val("").focus();
