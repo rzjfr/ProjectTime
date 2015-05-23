@@ -2,8 +2,7 @@
   <p>
     <em>[<%=project_conversation.created_at%>]</em>
     <strong><%=project_conversation.user.email%>: </strong>
-    <%#= mention_link project_conversation.content%>
     <%= sanitize mention_link(project_conversation.content),
-        tags: %w(a), attributes: %w(href) %>
+        tags: %w(span), attributes: %w(class) %>
   </p>
 </div>

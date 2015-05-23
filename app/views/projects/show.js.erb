@@ -1,5 +1,16 @@
 $(".conversation-scroll").prepend("<%= j(render partial: "project_conversation", collection: @project_conversations.sort { |x,y| x.created_at <=> y.created_at } )%>");
 $('.load-more').hide()
+$(".conversation-scroll .task-mention").off('click').click(function(){
+    var text = $(this).text().substring(1, $(this).text().length);
+    var b = $("tbody[digest=" + text +"]");
+    b.children().eq(1).collapse("show");
+    b.fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+    b.fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+    var a = b.parent().parent();
+    if(a !== undefined){
+        a.animate({ scrollTop: b.offset().top - a.offset().top + a.scrollTop() - 20 } );
+    }
+});
 <% if @project_conversations.last_page? %>
     $(".conversation-scroll").off('scroll');
     $('.pagination').remove();

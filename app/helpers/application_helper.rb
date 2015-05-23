@@ -59,7 +59,7 @@ module ApplicationHelper
   end
 
   def mention_link(input)
-    input.gsub(/#\w+/,'<a href="#">\\0</a>').gsub(/@\w+/,'<a href="#">\\0</a>')
+    input.gsub(/#\w+/,'<span class="task-mention">\\0</span>').gsub(/@\w+/,'<span class="user-mention">\\0</span>')
   end
 
   def project_channel(key)

@@ -412,3 +412,16 @@ h2 {
 
 #project_conversation_content.active { background: rgba(#5B8AE3, 0.5); }
 #project_conversation_content.hovered { background: #CCF; }
+
+.task-mention {
+    color: #0088CC;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.user-mention {
+    color: #0088CC;
+    cursor: pointer;
+    text-decoration: none;
+}
+
