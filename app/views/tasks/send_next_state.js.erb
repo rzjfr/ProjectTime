@@ -12,3 +12,4 @@
     $('tbody[data-item-id=<%=@task.id%>] form[id=send-current-milestone]').replaceWith("<%= escape_javascript render partial: "projects/task_control_button", locals: { task_id: @task.id, state: @task.state, function: "postpone_task", icon: "remove"} %>")
   <% end %>
 <% end %>
+<% @task.update_attribute :row_order_position, :last %>

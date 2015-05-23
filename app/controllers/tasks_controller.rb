@@ -60,7 +60,6 @@ class TasksController < ApplicationController
     when "Done"
         @next_state = "Archived"
     end
-    @task.update_attribute :row_order_position, :last
     if (@task.assignee_id.nil? || @task.estimate.nil?)
       @task.errors.add(:task, "Please fill in estimate and assigned user.")
     else
@@ -85,7 +84,6 @@ class TasksController < ApplicationController
     authorize @task
     @task.state = "Backlog"
     @task.milestone_id = @project.first_milestone.id
-    @task.update_attribute :row_order_position, :last
     respond_to do |format|
       if @task.save
         format.html { redirect_to @project}
@@ -102,7 +100,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize @task
     @task.milestone_id = @project.current_milestone.id
-    @task.update_attribute :row_order_position, :last
     respond_to do |format|
       if @task.save
         format.html { redirect_to @project}

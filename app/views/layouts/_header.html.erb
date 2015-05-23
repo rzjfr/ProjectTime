@@ -1,8 +1,14 @@
 <header class="navbar navbar-static-top navbar-default">
   <div class="container">
     <%#= link_to "Home Page", root_path, id: "logo", class: 'navbar-brand'%>
-
-    <nav>
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  </div>
+    <nav class="navbar-collapse collapse">
       <form class="navbar-form navbar-left" role="search">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
@@ -13,7 +19,7 @@
       </form>
       <% if related_page?("projects") && current_user.present? &&
            (current_user.projects.count > 0)%>
-        <strong class="light-text text-center"> Select Project: </strong>
+        <strong class="light-text text-center hidden-sm"> Select Project: </strong>
         <%= collection_select :project, :id, current_user.member_projects, :id, :name,
             {selected: params[:id]},
             {onchange: "window.location = '/projects/'+ value;", class: "quick-project"}%>

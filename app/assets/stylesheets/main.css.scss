@@ -261,11 +261,23 @@ table[id^=sortable-backlog] {
   padding-right: 0px !important;
 }
 
+html, body { height: 100%; width: 100%; margin: 0; }
+
 .board-scroll {
     border: solid #F1F1F1 4px;
     background-color: #FAFAFA;
     overflow-y: auto;
-    height: 400px;
+    overflow-x: hidden;
+    /*height: 400px;*/
+    height: 60vh;
+    /*margin-bottom: -9999px;*/
+    /*padding-bottom: 9999px;*/
+    /*max-height: 600px;*/
+    /*min-height: 300px;*/
+    /*height: auto;*/
+    /*min-height: 80%;*/
+    /*max-height: 80%;*/
+    /*height: 80%;*/
   -moz-border-radius-bottomright: 5px;
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-right-radius: 5px;
@@ -275,8 +287,9 @@ table[id^=sortable-backlog] {
 .conversation-box {
     border: solid #F1F1F1 5px;
     background-color: #FAFAFA;
-    margin-top: 10px;
-    height: 180px;
+    margin-top: 5px;
+    /*height: 180px;*/
+    height: 27vh;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
   -moz-border-radius-bottomright: 5px;
@@ -290,7 +303,8 @@ table[id^=sortable-backlog] {
 .conversation-scroll {
     overflow-y: auto;
     background-color: #F5F5F5;
-    height: 130px;
+    /*height: 130px;*/
+    height: 20vh;
     width: 100%;
     padding: 10px;
     padding-left: 15px;
@@ -340,6 +354,7 @@ html,body{background-color:#2D272F;}
 .project-board, .project-conversation {
   padding-right: 5px;
   padding-left: 5px;
+  margin-top: 3px;
 }
 
 .board-fence {
@@ -394,6 +409,9 @@ h2 {
 }
 
 .table {
+width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
   background-color: #F1F1F1;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
@@ -403,6 +421,8 @@ h2 {
   -webkit-border-top-right-radius: 5px;
   -webkit-border-bottom-right-radius: 5px;
   -webkit-border-bottom-left-radius: 5px;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .hidden {
@@ -424,4 +444,7 @@ h2 {
     cursor: pointer;
     text-decoration: none;
 }
-
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}

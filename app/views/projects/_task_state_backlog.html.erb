@@ -63,14 +63,14 @@
           <%= link_to edit_task_path(task.id), {class: "btn btn-default btn-xs", remote: true,
                                                 'data-target' => "layouts/modal",
                                                 'data-target' => '#modal-edit-task'} do %>
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-cog" aria-hidden="true" data-toggle="tooltip" title="edit"></span>
           <% end %>
         </td>
         <td class="pull-right">
           <%= form_for(task, html: { method: :delete }) do |f| %>
             <%= hidden_field_tag :project_id , @project.id %>
             <%= button_tag(class: "btn btn-xs", data: { disable_with: "Please wait..." }) do %>
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" title="delete"></span>
             <% end %>
             <%#= f.submit "Destroy", class: "btn btn-mini btn-link" , data: { disable_with: "Please wait..." } %>
           <% end %>

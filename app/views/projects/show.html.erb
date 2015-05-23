@@ -3,9 +3,9 @@
 <p class="project-dsc"><small><strong>Description:</strong> <%#= @project.description %></small></p>
 <p class="project-dsc"><small><strong>Owner:</strong> <%#= @project.user.email %></small></p>
 -->
-<div class="container">
+<div class="container-fluid">
 <div class="row">
-  <div class="col-md-4 project-board" id="backlog">
+  <div class="col-md-4 col-sm-4 col-xs-12 project-board" id="backlog">
     <h4 class="board-task-header text-center"><strong>Backlog</strong>
       <button type="button" class="btn btn-xs board-task-header-btn" data-toggle="modal"
         data-target="#modal-add-task">
@@ -22,13 +22,13 @@
       <%= render partial: "task_state_backlog", locals: {state: "Backlog" } %>
     </div>
   </div>
-  <div class="col-md-4 project-board" id="progress">
+  <div class="col-md-4 col-sm-4 col-xs-6 project-board" id="progress">
     <h4 class="board-task-header text-center"><strong>In Progress</strong></h4>
     <div class="board-scroll">
       <%= render partial: "task_state", locals: {state: "Progress" } %>
     </div>
   </div>
-  <div class="col-md-4 project-board" id="done">
+  <div class="col-md-4 col-sm-4 col-xs-6 project-board" id="done">
     <h4 class="board-task-header text-center"><strong>Done</strong></h4>
     <div class="board-scroll">
       <%= render partial: "task_state", locals: {state: "Done" } %>
