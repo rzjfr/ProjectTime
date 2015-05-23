@@ -61,4 +61,33 @@ module ApplicationHelper
   def mention_link(input)
     input.gsub(/#\w+/,'<a href="#">\\0</a>').gsub(/@\w+/,'<a href="#">\\0</a>')
   end
+
+  def project_channel(key)
+    Digest::SHA2.hexdigest(key.to_s + FAYE_CONFIG[:token])
+  end
+
+  def send_to_all(message, sender)
+    message = {channel: "/messages/global",
+               data: { text: message, type: "Public", from: sender },
+               ext: {auth_token: FAYE_CONFIG[:token]} }
+    uri = URI.parse(FAYE_CONFIG[:server])
+    begin
+      Net::HTTP.post_form(uri, message: message.to_json)
+    rescue Errno::ECONNREFUSED
+      puts "======================== Faye Server is down ===================="
+    end
+  end
+
+  def push_block(channel, &block)
+    message = {channel: "/messages/private/" + channel,
+               data: capture(&block) ,
+               ext: {auth_token: FAYE_CONFIG[:token]} }
+    uri = URI.parse(FAYE_CONFIG[:server])
+    begin
+      Net::HTTP.post_form(uri, message: message.to_json)
+    rescue Errno::ECONNREFUSED
+      puts "======================== Faye Server is down ===================="
+    end
+  end
+
 end

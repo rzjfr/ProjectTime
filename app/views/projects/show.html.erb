@@ -102,4 +102,39 @@ $(document).ready(function() {
         }
     });
 });
+
+  var client = new Faye.Client("<%=FAYE_CONFIG[:server]%>");
+  client.addExtension({
+    outgoing: function(message, callback) {
+        message.ext = message.ext || {};
+        message.ext.csrfToken = $('meta[name=csrf-token]').attr('content');
+        callback(message);
+    }
+  });
+
+  var public_subscription = client.subscribe("/messages/global", function(message) {
+    $.notify({ message: "[Public] " + message.from + " says: " + message.text },
+             { type: "info",
+               delay: 8000,
+               animate: {
+                 enter: 'animated shake',
+                 exit: 'animated fadeOutUp'
+                 },
+                mouse_over: "pause"
+             });
+  });
+
+  var private_subscription = client.subscribe('/messages/private/<%=project_channel @project.id%>', function(data) {
+    eval(data);
+  });
+
+  private_subscription.then(function() {
+    console.log('/messages/private/<%=project_channel @project.id%>');
+  });
+
+  public_subscription.then(function() {
+    console.log('/messages/public');
+  });
+
 </script>
+<% send_to_all("hello",current_user.email) %>

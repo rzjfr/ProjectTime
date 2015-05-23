@@ -1,0 +1,10 @@
+development:
+    server: "http://localhost:9292/faye"
+    token: "123"
+test:
+    server: "http://localhost:9292/faye"
+    token: "123"
+production:
+    server: "http://something.me/faye"
+    token: "6d870c369c543204f389ec22fdc0e108c40ef00e72fdc8c09bfdd6348dd"
+

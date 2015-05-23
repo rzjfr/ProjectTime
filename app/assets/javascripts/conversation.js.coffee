@@ -7,6 +7,6 @@ jQuery ->
       setTimeout (->
         $.getScript more_posts_url
         return
-      ), 100
+      ), 500
     return
   return
