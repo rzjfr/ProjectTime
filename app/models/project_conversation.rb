@@ -4,7 +4,7 @@ class ProjectConversation < ActiveRecord::Base
   has_many :message
   validates :content, length: { maximum: 320 }
   default_scope ->{ order('created_at DESC') }
-  paginates_per 5
+  paginates_per 11
 
   after_save {
     #Message.create

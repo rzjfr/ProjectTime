@@ -1,4 +1,4 @@
-#rackup faye_server.ru -s thin -E production &
+#rackup faye_server.ru -s thin -E production -o 0.0.0.0 &
 #thin -p 9292 -t 60 -R faye.ru start
 require 'yaml'
 require 'faye'

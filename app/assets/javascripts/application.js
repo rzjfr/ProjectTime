@@ -12,8 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/core
+//= require jquery-ui/widget
+//= require jquery-ui/mouse
+//= require jquery-ui/position
 //= require jquery-ui/sortable
 //= require jquery-ui/droppable
+//= require jquery-ui/draggable
 //= require jquery-ui/effect-highlight
 //= require bootstrap
 //= require bootstrap-datepicker

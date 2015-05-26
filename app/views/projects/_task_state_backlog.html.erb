@@ -29,9 +29,7 @@
   <% @tasks.each do |task| %>
     <tbody data-item-id=<%= "#{task.id}" %> class="task-item" digest="<%=task.title_digest%>">
       <tr class="task-title" >
-        <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="9"> <%= task.title %> </td>
-        <td>
-        </td>
+        <td data-toggle="collapse" href="<%="#task-#{task.id}"%>" colspan="7"> <%= task.title %> </td>
         <td>
           <% if !(milestone.id == Project.find(task.project_id).first_milestone.id) %>
             <%= render partial: "task_control_button", locals: { task_id: task.id, state: state,
@@ -50,7 +48,7 @@
         </td>
       </tr>
       <tr id="<%="task-#{task.id}"%>" class="task-detail collapse out" >
-        <td  colspan="11">
+        <td  colspan="8">
           <em>
               <%#= Milestone.find(task.milestone_id).full_title if task.milestone_id.present?%>
               <strong>Description: </strong><%= task.description%>

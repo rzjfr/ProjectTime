@@ -22,13 +22,13 @@
       <%= render partial: "task_state_backlog", locals: {state: "Backlog" } %>
     </div>
   </div>
-  <div class="col-md-4 col-sm-4 col-xs-6 project-board" id="progress">
+  <div class="col-md-4 col-sm-4 col-xs-6 project-board hidden-xs" id="progress">
     <h4 class="board-task-header text-center"><strong>In Progress</strong></h4>
     <div class="board-scroll">
       <%= render partial: "task_state", locals: {state: "Progress" } %>
     </div>
   </div>
-  <div class="col-md-4 col-sm-4 col-xs-6 project-board" id="done">
+  <div class="col-md-4 col-sm-4 col-xs-6 project-board hidden-xs" id="done">
     <h4 class="board-task-header text-center"><strong>Done</strong></h4>
     <div class="board-scroll">
       <%= render partial: "task_state", locals: {state: "Done" } %>
@@ -43,7 +43,9 @@
         <%= render partial: "project_conversation",
           collection: @project_conversations.sort { |x,y| x.created_at <=> y.created_at } %>
       </div>
-      <%= render "add_project_conversation" %>
+      <div class="conversation-add">
+        <%= render "add_project_conversation" %>
+      </div>
       <div class="hidden">
         <%= paginate @project_conversations %>
       </div>
@@ -146,6 +148,12 @@ $(document).ready(function() {
       if(a !== undefined){
           a.animate( { scrollTop: b.offset().top - a.offset().top + a.scrollTop() - 20});
       }
+  });
+
+  $(".conversation-scroll .user-mention").off('click').click(function(){
+      var text = $(this).text().substring(1, $(this).text().length);
+      value = $("#project_conversation_content").val();
+      $("#project_conversation_content").val(value + " @" + text + " ").focus();
   });
 
 </script>

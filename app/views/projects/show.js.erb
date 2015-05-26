@@ -11,10 +11,16 @@ $(".conversation-scroll .task-mention").off('click').click(function(){
         a.animate({ scrollTop: b.offset().top - a.offset().top + a.scrollTop() - 20 } );
     }
 });
+$(".conversation-scroll .user-mention").off('click').click(function(){
+    var text = $(this).text().substring(1, $(this).text().length);
+    value = $("#project_conversation_content").val();
+    $("#project_conversation_content").val(value + " @" + text + " ").focus();
+});
 <% if @project_conversations.last_page? %>
     $(".conversation-scroll").off('scroll');
     $('.pagination').remove();
 <% else %>
     $('.pagination').replaceWith('<%= j(paginate @project_conversations) %>');
-    $(".conversation-scroll").animate({ scrollTop: 50 }, "fast");
+    $(".conversation-scroll").scrollTop(315);
+    $(".conversation-scroll").animate({ scrollTop: 280 }, "slow");
 <% end %>
