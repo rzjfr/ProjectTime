@@ -246,24 +246,14 @@ table[id^=sortable-backlog] {
 }
 
 .quick-project {
-  border: 1px solid #bbb;
-  width: 10%;
-  margin-top: 5px ;
-  padding-right: 5px;
-  margin-bottom: 0px;
-  background-color: white;
-  height: 25px;
-  line-height: 25px;
-  -moz-border-radius-topleft: 4px;
-  -moz-border-radius-topright: 4px;
-  -moz-border-radius-bottomright: 4px;
-  -moz-border-radius-bottomleft: 4px;
-  -webkit-border-top-left-radius: 4px;
-  -webkit-border-top-right-radius: 4px;
-  -webkit-border-bottom-right-radius: 4px;
-  -webkit-border-bottom-left-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+  margin-top: 5px;
+}
+
+.quick-project > button.btn.dropdown-toggle.btn-default{
+  padding-top: 0px;
+  padding-bottom: 10px;
+  height: 26px;
+  line-height: 26px;
 }
 
 .title-next-btn {
@@ -504,3 +494,7 @@ button.navbar-toggle.mobile-header-btn {
 .navbar-left {
     border: 0;
 }
+
+/*em {*/
+  /*color: #FFFBA4;*/
+/*}*/

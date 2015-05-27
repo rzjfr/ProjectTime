@@ -11,6 +11,14 @@ module ApplicationHelper
     in_project_edit? ? "active" : ""
   end
 
+  def statistics_active?
+    in_project_statistics? ? "active" : ""
+  end
+
+  def search_active?
+    in_project_search? ? "active" : ""
+  end
+
   def related_page?(resource)
     request.path.split('/')[1] == resource || request.path == "/"
   end
@@ -21,6 +29,14 @@ module ApplicationHelper
 
   def in_project_edit?
     params[:controller] == "projects" && params[:action] == "edit"
+  end
+
+  def in_project_search?
+    params[:controller] == "projects" && params[:action] == "search"
+  end
+
+  def in_project_statistics?
+    params[:controller] == "projects" && params[:action] == "statistics"
   end
 
   def mentioned_members_ids(project, message)

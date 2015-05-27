@@ -18,8 +18,8 @@ class ProjectPolicy < ApplicationPolicy
     user.admin? or (user.id == project.user_id)
   end
 
-  def searches?
-    user.admin? or (user.id == project.user_id)
+  def search?
+    user.admin? or (project.members_ids.include? user.id)
   end
 
   def update?

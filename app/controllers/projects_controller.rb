@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy,
-                                     :statistics, :searches]
+                                     :statistics, :search]
   before_action :authenticate_user!
   after_action :verify_authorized, except: [:index, :new, :create, :project_board]
 
@@ -47,9 +47,15 @@ class ProjectsController < ApplicationController
   end
 
   def statistics
+    authorize @project
   end
 
-  def searches
+  def search
+    authorize @project
+    params[:users] ||= @project.members_ids
+    #params[:users].uniq.reject {|x| !(x.include? @project.members_ids)}  # not needed
+    @search_results = ProjectConversation.search("*#{params[:q]}*", params[:id],
+                                                 params[:users]).page(params[:page])#.records
   end
 
   # GET /projects/new

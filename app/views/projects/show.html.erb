@@ -63,6 +63,8 @@
   {:remote => true, 'data-target' => "layouts/modal", 'data-target' => '#modal-edit-task'} %>
 <script type="text/javascript">
 $(document).ready(function() {
+    $('.conversation-scroll').scrollTop($('.conversation-scroll')[0].scrollHeight);
+
     var usernames = eval("['<%= j(@project.members.pluck(:username).join("', '")).html_safe%>']");
     var username_emails = eval("['<%= j(@project.members.pluck(:email).join("', '")).html_safe%>']");
     var usernames = $.map(usernames,function(value,i) {
@@ -156,4 +158,7 @@ $(document).ready(function() {
       $("#project_conversation_content").val(value + " @" + text + " ").focus();
   });
 
+  $(document).on('page:load', function(){
+      $('.conversation-scroll').scrollTop($('.conversation-scroll')[0].scrollHeight);
+  });
 </script>

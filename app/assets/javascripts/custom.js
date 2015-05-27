@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
-    $('.conversation-scroll').scrollTop($('.conversation-scroll')[0].scrollHeight);
+    $('.selectpicker').selectpicker('render');
     $('[data-toggle="tooltip"]').tooltip();
     //$('[data-toggle="popover"]').popover()
     $(".mobile-header-btn").click(function() {
@@ -18,6 +18,7 @@ $(document).ready(function(){
 
 $(document).on('page:load', function(){
     $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+    $('.selectpicker').selectpicker('render');
     $('[data-toggle="tooltip"]').tooltip();
     $('.conversation-scroll').scrollTop($('.conversation-scroll')[0].scrollHeight);
     //$('[data-toggle="popover"]').popover()
