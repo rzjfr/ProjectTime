@@ -1,4 +1,9 @@
-jQuery ->
+#jQuery ->
+#(($) ->
+#$ ->
+#$(document).ready ->
+
+attachConversationHandler = ->
   $(".conversation-scroll").on 'scroll', ->
     more_posts_url = $(".pagination a[rel=next]").attr('href')
     if more_posts_url && $(".conversation-scroll").scrollTop() == 0
@@ -10,3 +15,7 @@ jQuery ->
       ), 500
     return
   return
+#) jQuery
+
+$(document).ready attachConversationHandler
+$(document).on "page:load", attachConversationHandler

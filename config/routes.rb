@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   get "project_board" => "projects#project_board"
+  get "search" => "projects#user_search"
   resources :projects
   resources :projects do
     member do

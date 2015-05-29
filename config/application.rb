@@ -2,6 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'rufus-scheduler'
+require 'kaminari'
+require 'elasticsearch/model'
 
 SCHEDULER = Rufus::Scheduler.new
 

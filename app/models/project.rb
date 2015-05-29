@@ -24,8 +24,12 @@ class Project < ActiveRecord::Base
   end
 
   def add_project_member(user, project)
-    ProjectMember.create(project_id: project.id, user_id: user.id,
-                         owner: (project.user_id == user.id))
+    if user.nil?
+      errors.add(:user, ': no user with that username.')
+    else
+      ProjectMember.create(project_id: project.id, user_id: user.id,
+                           owner: (project.user_id == user.id))
+    end
   end
 
   def remove_project_member(user, project)

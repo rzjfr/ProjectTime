@@ -19,7 +19,20 @@
   <% end %>
 </div>
 
-<div class="raw">
-  <%= render partial: "search_result", collection: @search_results %>
-  <%= paginate @search_results %>
+<div class="container">
+  <div class="col-md-12">
+    <table class="table search-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th colspan="8">Content</th>
+        <th>Sender</th>
+      </tr>
+    </thead>
+      <tbody>
+        <%= render partial: "search_result", collection: @search_results %>
+      </tbody>
+    </table>
+    <%= paginate @search_results %>
+  </div>
 </div>

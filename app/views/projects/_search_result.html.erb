@@ -1,6 +1,5 @@
-<h2>
-    <%= sanitize search_result.highlight.content[0], tags: %w(em)%>
-  [ <%= search_result.created_at.to_date%> ]
-  [ <%= search_result.user_id%> ]
-  [ <%= search_result.project_id%> ]
-</h2>
+<tr>
+  <td> <%= search_result.created_at.to_date%> </td>
+  <td colspan="8"> <%= sanitize search_result.highlight.content[0], tags: %w(em)%> </td>
+  <td> <%= User.find(search_result.user_id).email %></td>
+</tr>

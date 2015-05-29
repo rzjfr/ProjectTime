@@ -1,5 +1,3 @@
-require 'elasticsearch/model'
-
 class ProjectConversation < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
@@ -18,16 +16,34 @@ class ProjectConversation < ActiveRecord::Base
     end
   }
 
-  settings index: { number_of_shards: 1 } do
-    mappings dynamic: 'false' do
-      indexes :content, analyzer: 'english'
-    end
+  settings index: {
+    number_of_shards: 1,
+    number_of_replicas: 0 ,
+    analysis: {
+      filter: {
+          conversation_filter: {
+              type: "word_delimiter",
+              type_table: ["# => ALPHA", "@ => ALPHA"]
+          }
+      },
+      analyzer: {
+          conversation_analyzer: {
+              type: "custom",
+              tokenizer: "whitespace",
+              filter: ["lowercase", "conversation_filter"]
+          }
+      }
+    }
+  }
+
+  mappings dynamic: 'false' do
+    indexes :content, type: "string", analyzer: 'conversation_analyzer', index_options: 'offsets', analyze_wildcard: true
+    indexes :project_id, type: "long"
+    indexes :user_id, type: "string"
+    indexes :created_at, type: 'date'
   end
 
-  def self.search(query, project_id, user_id, options={})
-    #byebug
-    #options[:per_page] ||= 10
-    #options[:from] = options[:page] * options[:per_page]
+  def self.search(query, project_id, user_id, fuzzy, options={})
     __elasticsearch__.search(
       {
         query: {
@@ -35,8 +51,9 @@ class ProjectConversation < ActiveRecord::Base
             query: {
               multi_match: {
                 query: query,
-                fields: ['content'],
-              operator: "and"
+                fields: ['content^10'],
+                #fuzziness: 2,
+                operator: "AND"
               }
             },
             filter: {
@@ -51,7 +68,7 @@ class ProjectConversation < ActiveRecord::Base
           }
         },
         highlight: {
-          pre_tags: ['<em>'],
+          pre_tags: ['<em class="search-em">'],
           post_tags: ['</em>'],
           fields: {
             content: {}
@@ -60,6 +77,7 @@ class ProjectConversation < ActiveRecord::Base
       },
       #size: options[:per_page],
       #from: options[:from]
+      #sort: [ { content: {order: "asc"}} ]
     )
   end
 end

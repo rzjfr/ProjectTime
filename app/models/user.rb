@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   attr_accessor :login
@@ -40,4 +43,54 @@ class User < ActiveRecord::Base
     self.member_projects.pluck(:id)
   end
 
+  def self.search(query, options={})
+    __elasticsearch__.search(
+      {
+        query: {
+            multi_match: {
+            query: query,
+            fields: ['username^10', 'email'],
+            operator: "AND"
+            }
+        },
+      },
+    )
+  end
+
+  settings index: {
+    number_of_shards: 1,
+    number_of_replicas: 0,
+    analysis: {
+      filter: {
+            autocomplete_filter: {
+                type:     "edge_ngram",
+                min_gram: 1,
+                max_gram: 20
+            }
+      },
+      analyzer: {
+        autocomplete: {
+            type: "custom",
+            tokenizer: "standard",
+            filter: ["lowercase", "autocomplete_filter"]
+        }
+      }
+    }
+  }
+
+  mappings dynamic: 'false' do
+    indexes :username, type: "string", analyzer: "autocomplete"
+    indexes :email, type: "string"
+    indexes :id, type: "long"
+  end
+
+  def as_indexed_json(options={})
+    as_json(
+      only: [:id, :username, :email]
+    )
+  end
+
+
 end
+
+User.import

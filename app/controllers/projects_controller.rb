@@ -2,7 +2,8 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy,
                                      :statistics, :search]
   before_action :authenticate_user!
-  after_action :verify_authorized, except: [:index, :new, :create, :project_board]
+  after_action :verify_authorized, except: [:index, :new, :create, :user_search,
+                                            :project_board]
 
   # GET /projects
   # GET /projects.json
@@ -55,7 +56,11 @@ class ProjectsController < ApplicationController
     params[:users] ||= @project.members_ids
     #params[:users].uniq.reject {|x| !(x.include? @project.members_ids)}  # not needed
     @search_results = ProjectConversation.search("*#{params[:q]}*", params[:id],
-                                                 params[:users]).page(params[:page])#.records
+                                                 params[:users], params[:fuzzy]).page(params[:page])#.records
+  end
+
+  def user_search
+    render json: User.search("*#{params[:q]}*")
   end
 
   # GET /projects/new
