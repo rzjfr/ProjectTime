@@ -48,6 +48,22 @@ class Project < ActiveRecord::Base
     self.milestone.count != 1
   end
 
+  def current_milestone_end_date
+    if self.uses_milestones?
+      return self.current_milestone.end_date
+    else
+      return Date.today
+    end
+  end
+
+  def current_milestone_start_date
+    if self.uses_milestones?
+      return self.milestone.where('end_date < (?)', Date.today).order(:end_date).last.end_date
+    else
+      return first_milestone.end_date
+    end
+  end
+
   def current_milestone
     if self.uses_milestones?
       return self.milestone.where('end_date >= (?)', Date.today).order(:end_date).first
@@ -66,6 +82,10 @@ class Project < ActiveRecord::Base
 
   def members
     User.where("id in (?)", self.project_member.pluck(:user_id))
+  end
+
+  def start_time
+    self.first_milestone.created_at
   end
 
 end

@@ -49,6 +49,8 @@ gem 'elasticsearch-extensions', git: 'git://github.com/elasticsearch/elasticsear
 gem 'faye'
 gem 'faye-redis'
 gem 'delayed_job_active_record'
+#gem 'chartkick'
+gem 'groupdate'
 
 group :development, :test do
   #gem 'sqlite3',        '1.3.9'

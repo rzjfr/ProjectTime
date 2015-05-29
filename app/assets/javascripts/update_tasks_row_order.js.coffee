@@ -7,7 +7,7 @@
 jQuery ->
   IDs = $('table[id^=sortable]').map(-> @id).get()
   IDs = IDs.filter((itm, i, a) -> i == a.indexOf(itm))
-  console.log(IDs)
+  #console.log(IDs)
   IDs.forEach (tag, i) ->
     jQuery ->
       #console.log("#"+tag)
@@ -21,7 +21,7 @@ jQuery ->
             item_id = ui.item.data('item-id')
             #console.log(item_id)
             position = ui.item.index()
-            console.log(position)
+            #console.log(position)
             $.ajax(
               type: 'POST'
               url: '/tasks/update_row_order'

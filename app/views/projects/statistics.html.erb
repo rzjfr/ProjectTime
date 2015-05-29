@@ -1,1 +1,152 @@
-<h1>Listing Statistics</h1>
+<script>
+$(function () {
+    $('#progressChart').highcharts({
+        progressChart: {
+            type: 'area',
+            spacingBottom: 30
+        },
+        title: {
+            text: 'Progress Chart*'
+        },
+        subtitle: {
+            text: '* sum of Archived tasks each day',
+            floating: true,
+            align: 'right',
+            verticalAlign: 'bottom',
+            y: 15
+        },
+        xAxis: {
+              tickInterval: 24 * 3600 * 1000, // one day
+                tickWidth: 0,
+                gridLineWidth: 1,
+                labels: {
+                    align: 'left',
+                    x: 3,
+                    y: -3
+                },
+                type: 'datetime',
+
+            plotBands: [ <%= sanitize milestone_highlight @project %>
+              //{from: 1430611200000, to: 1430697600000, color: 'rgba(68, 170, 213, .2)'},
+              //{from: 1430697600000, to: 1430870400000, color: 'rgba(70, 70, 187, .2)'}
+               ]
+        },
+        yAxis: {
+            title: {
+                text: 'Y-Axis'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value;
+                }
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    new Date(this.x) + ': <b>' + this.y + '</b>';
+            }
+        },
+        plotOptions: {
+            area: {
+                //cursor: 'pointer',
+                fillOpacity: 0.5
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            type: 'area',
+            name: '<%= @project.name %>',
+            pointInterval: 24 * 3600 * 1000,
+            pointStart: <%= start_date @project %>,
+            //data: <%#= @project.task.group_by_day(:updated_at, range: @project.start_time.midnight..Time.now).count.values %>
+            //data: <%#= cumulative_sum count_state(@project, 'Archived')%>
+            data: <%= cumulative_sum sum_points_state(@project, 'Archived')%>
+        }]
+    });
+});
+
+$(function () {
+    $('#burndownChart').highcharts({
+        burndownChart: {
+            type: 'area',
+            spacingBottom: 30
+        },
+        title: {
+            text: 'Burndown Chart*'
+        },
+        subtitle: {
+            text: '* sum of Archived tasks each day',
+            floating: true,
+            align: 'right',
+            verticalAlign: 'bottom',
+            y: 15
+        },
+        xAxis: {
+              tickInterval: 24 * 3600 * 1000, // one day
+                tickWidth: 0,
+                gridLineWidth: 1,
+                labels: {
+                    align: 'left',
+                    x: 3,
+                    y: -3
+                },
+                type: 'datetime',
+        },
+        yAxis: {
+            title: {
+                text: 'Y-Axis'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value;
+                }
+            }
+        },
+        tooltip: {
+          valueSuffix: ' points',
+          formatter: function () {
+            if(this.series.name == '<%= @project.name %>' ){
+                return '<b>' + this.series.name + '</b><br/>' + new Date(this.x) + ': <b>' + this.y + '</b>';
+            } else return false ;
+          }
+        },
+        plotOptions: {
+            series: { marker: { enabled: false } },
+            area: {
+                //cursor: 'pointer',
+                fillOpacity: 0.5
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            type: 'area',
+            name: 'Ideal line',
+            pointInterval: 24 * 3600 * 1000,
+            marker: { radius: 0, fillColor: 'transparent', lineColor: 'transparent' },
+            states: { hover: false},
+            pointStart: <%= int_epoch @project.current_milestone_start_date %>,
+            data: <%= ideal_milestone_burndown @project %>
+
+              },
+                {
+            type: 'area',
+            name: '<%= @project.name %>',
+            pointInterval: 24 * 3600 * 1000,
+            marker: { enabled: true, radius: 5 },
+            pointStart: <%= int_epoch @project.current_milestone_start_date %>,
+            data: <%= current_milestone_burndown @project %>
+        }
+                ]
+
+    });
+});
+</script>
+<h1>Statistics for <%= @project.name %></h1>
+<h2>Started at <%= @project.start_time %></h2>
+<div id="progressChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="burndownChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

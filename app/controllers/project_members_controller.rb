@@ -2,7 +2,7 @@ class ProjectMembersController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @user = User.find_by_username(params[:project_member][:user_id])
+    @user = User.find_by_email(params[:project_member][:user_id])
     @project = Project.find(params[:project_member][:project_id])
     @project.add_project_member(@user, @project)
     respond_to do |format|

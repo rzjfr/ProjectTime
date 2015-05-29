@@ -22,7 +22,7 @@ $("#project_member_user_id").typeahead({
   limit: 10,
   source: engine,
     displayKey: function (engine) {
-                return engine._source.username;
+                return engine._source.email;
             },
     updater: function (engine) {
         $( "#userId" ).val(engine._source.username);
@@ -45,7 +45,7 @@ $("#project_member_user_id").typeahead({
 
     <%#= f.collection_select :user_id, User.where('id not in (?)', @project.user_id), :id, :email, {}, {class: "form-control"}  %>
     <%= f.hidden_field :project_id, value: @project.id %>
-    <%#= f.label :user_id , class: 'control-label'%>
+    <%= f.label :user_id , class: 'control-label'%>
     <div class="input-group">
         <%= f.text_field :user_id , class: 'typeahead form-control', autocomplete: "off" ,
                                       placeholder: "search user"%>

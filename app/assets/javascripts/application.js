@@ -23,5 +23,6 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-notify
+//= require highcharts
 //= require turbolinks
 //= require_tree .

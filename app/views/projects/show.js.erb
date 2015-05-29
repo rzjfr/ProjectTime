@@ -1,5 +1,4 @@
 $(".conversation-scroll").prepend("<%= j(render partial: "project_conversation", collection: @project_conversations.sort { |x,y| x.created_at <=> y.created_at } )%>");
-$('.load-more').hide()
 $(".conversation-scroll .task-mention").off('click').click(function(){
     var text = $(this).text().substring(1, $(this).text().length);
     var b = $("tbody[digest=" + text +"]");
@@ -24,3 +23,4 @@ $(".conversation-scroll .user-mention").off('click').click(function(){
     $(".conversation-scroll").scrollTop(315);
     $(".conversation-scroll").animate({ scrollTop: 280 }, "slow");
 <% end %>
+$('.load-more').hide()
