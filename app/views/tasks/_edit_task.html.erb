@@ -7,13 +7,16 @@
     <%= f.label :description %>
     <%= f.text_field :description , class: 'form-control' %>
 
+    <% if @project.uses_milestones? %>
     <%= f.label :milestone_id %>
     <%= f.collection_select :milestone_id,
       @project.milestone.where.not('end_date < (?) and id != (?)',
                           Date.today, @project.first_milestone.id),
       :id, :full_title, {}, {class: "form-control"} %>
 
-    <%= f.label :user_id %>
+    <% end %>
+
+    <%= f.label :user_id , class: 'control-label'%>
     <%= f.collection_select :assignee_id,
       User.where('id in (?)', @project.project_member.pluck(:user_id)),
       :id, :email, {prompt: ""}, {class: "form-control"}  %>

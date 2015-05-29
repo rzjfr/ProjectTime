@@ -20,12 +20,12 @@ module ProjectsHelper
 
   def count_state(project, state)
     project.task.where(state: state).group_by_day(:updated_at,
-                                                  range: project.start_time.midnight.midnight..Time.now).count.values
+                                                  range: project.start_time.midnight..Time.now).count.values
   end
 
   def sum_points_state(project, state)
     project.task.where(state: state).group_by_day(:updated_at,
-                                                  range: project.start_time.midnight.midnight..Time.now).sum(:estimate).values
+                                                  range: project.start_time.midnight..Time.now).sum(:estimate).values
   end
 
   def random_color
