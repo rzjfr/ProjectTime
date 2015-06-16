@@ -65,12 +65,16 @@ group :development, :test do
   gem 'faker',          '1.4.2'
   gem 'custom_error_message', github: 'nwise/custom_error_message'
   #gem 'pry'
-  #gem 'capistrano-rails', group: :development
+  gem 'capistrano', '~> 3.3.0'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
   #gem 'selenium-webdriver', '2.35.1'
   #gem 'capybara', '2.1.0'
   #gem 'factory_girl_rails', '4.2.0'
   #gem 'cucumber-rails', '1.4.0', :require => false
-  # gem 'libnotify', '0.8.0'
+  #gem 'libnotify', '0.8.0'
   #gem 'database_cleaner', github: 'bmabey/database_cleaner'
 end
 
