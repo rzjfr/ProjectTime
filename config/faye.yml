@@ -1,10 +1,9 @@
 development:
-    server: "http://172.18.43.87:9292/faye"
+    server: "http://localhost:9292/faye"
     token: "123"
 test:
     server: "http://localhost:9292/faye"
     token: "123"
 production:
-    server: "http://something.me/faye"
+    server: "http://95.211.115.153/faye"
     token: "6d870c369c543204f389ec22fdc0e108c40ef00e72fdc8c09bfdd6348dd"
-
