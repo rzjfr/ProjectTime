@@ -2,8 +2,8 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many :project_member, dependent: :destroy
   has_many :project_conversation, dependent: :destroy
-  has_many :milestone, dependent: :destroy
   has_many :task, dependent: :destroy
+  has_many :milestone, dependent: :destroy
   validates :description, length: { maximum: 100 }
   validates :name, length: { maximum: 20 }, presence: true
   validates :user_id, presence: true
@@ -14,7 +14,7 @@ class Project < ActiveRecord::Base
   after_create {
     self.add_project_member(User.find(self.user_id), self)
     Milestone.create(title: (self.name + " project start"),
-                     end_date: (self.created_at.to_date+4.5*3600),
+                     end_date: (self.created_at+4.5*3600).to_date,
                      project_id: self.id)
   }
 
@@ -59,7 +59,7 @@ class Project < ActiveRecord::Base
 
   def current_milestone_start_date
     if self.uses_milestones?
-      return self.milestone.where('end_date < (?)', Date.today).order(:end_date).last.end_date
+      return self.milestone.where('end_date <= (?)', Date.today).order(:end_date).last.end_date
     else
       return first_milestone.end_date
     end
@@ -67,7 +67,8 @@ class Project < ActiveRecord::Base
 
   def current_milestone
     if self.uses_milestones?
-      return self.milestone.where('end_date >= (?)', Date.today).order(:end_date).first
+      return self.milestone.where('end_date >= (?) and id != (?)', Date.today,
+                                  first_milestone.id).order(:end_date).first
     else
       return self.milestone.order(:end_date).last
     end

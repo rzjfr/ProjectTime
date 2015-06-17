@@ -45,7 +45,7 @@ module ProjectsHelper
   def current_milestone_burndown(project)
     comming = project.current_milestone_end_date.to_time
     current = project.current_milestone_start_date.to_time
-    point = project.task.where(milestone_id: project.current_milestone.id).pluck(:estimate).reject!(&:nil?)
+    point = project.task.where(milestone_id: project.current_milestone.id).pluck(:estimate).reject(&:nil?)
     point = point.nil? ? 0 : point.sum
     points = project.task.where(state: 'Archived').group_by_day(:updated_at, range: current..comming).sum(:estimate).values
     till_now = (Date.tomorrow - current.to_date).to_i
@@ -57,8 +57,8 @@ module ProjectsHelper
   def ideal_milestone_burndown(project)
     comming = project.current_milestone_end_date
     current = project.current_milestone_start_date
-    size = (comming - current).to_i
-    point = project.task.where(milestone_id: project.current_milestone.id).pluck(:estimate).reject!(&:nil?)
+    size = ((comming+1) - current).to_i
+    point = project.task.where(milestone_id: project.current_milestone.id).pluck(:estimate).reject(&:nil?)
     point = point.nil? ? 0 : point.sum
     return range_from(point, size)
   end
