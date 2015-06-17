@@ -14,7 +14,7 @@ class Project < ActiveRecord::Base
   after_create {
     self.add_project_member(User.find(self.user_id), self)
     Milestone.create(title: (self.name + " project start"),
-                     end_date: (self.created_at+4.5*3600).to_date,
+                     end_date: self.created_at.to_date,
                      project_id: self.id)
   }
 

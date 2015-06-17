@@ -1,4 +1,4 @@
-SCHEDULER.every("1h") do
+SCHEDULER.every("12h") do
   Project.all.each do |project|
     next if !project.uses_milestones?
     project.milestone.each do |milestone|

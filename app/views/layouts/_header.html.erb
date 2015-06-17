@@ -91,6 +91,7 @@
     <ul class="list-unstyled">
           <% if in_project_board? || in_project_search? || in_project_edit? || in_project_statistics?%>
             <li class="<%=home_active? %>"><%= link_to "Project Board", project_path(params[:id]) %></li>
+            <li class="<%=edit_active?%>"> <%= link_to 'Project Edit', edit_project_path %> </li>
             <li class="<%=statistics_active?%>"> <%= link_to 'Statistics', statistics_project_path %> </li>
             <li class="<%=search_active?%>"> <%= link_to 'Search', search_project_path %> </li>
           <%else%>

@@ -15,7 +15,7 @@ class Milestone < ActiveRecord::Base
   end
 
   def passed?
-    self.end_date < Date.today
+    self.end_date < Date.today || self.id == Project.find(self.project_id).first_milestone.id
   end
 
   def full_title
