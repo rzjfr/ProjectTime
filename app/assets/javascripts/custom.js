@@ -14,6 +14,11 @@ $(document).ready(function(){
             }
         });
     });
+
+    $(".nav-trigger").click(function() {
+        $("body").toggleClass("show-sidebar");
+        $(".nav-trigger").toggleClass("glyphicon-remove");
+    });
 });
 
 $(document).on('page:load', function(){
@@ -29,5 +34,10 @@ $(document).on('page:load', function(){
             $("#" + $(this).attr('name')).attr("class","col-md-4 col-sm-4 project-board hidden-xs");
             }
         });
+    });
+
+    $(".nav-trigger").click(function() {
+        $("body").toggleClass("show-sidebar");
+        $(".nav-trigger").toggleClass("glyphicon-remove");
     });
 });
