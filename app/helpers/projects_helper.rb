@@ -51,7 +51,7 @@ module ProjectsHelper
     till_now = (Date.tomorrow - current.to_date).to_i
     points = cumulative_sum points
     points = points.map {|x| point - x}
-    return points[0..till_now]#.concat points[(till_now+1)..-1].map {|x| 0})
+    return points[0..(till_now-1)]#.concat points[(till_now+1)..-1].map {|x| 0})
   end
 
   def ideal_milestone_burndown(project)

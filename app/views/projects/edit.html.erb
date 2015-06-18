@@ -1,4 +1,4 @@
-<h1>List Projects</h1>
+<h1> Project Name: <%= @project.name %> </h1>
 <h2>
   <strong>Owner:</strong>
   <%= @project.user.email %>
@@ -7,7 +7,6 @@
     {:selected => params[:id]},
     {:onchange => "window.location = '/projects/'+ value;", class: "form-control"}%>
 
-<h1>Editing Project</h1>
 <%= form_for(@project) do |f| %>
     <%= render 'layouts/errors', object: f.object %>
 

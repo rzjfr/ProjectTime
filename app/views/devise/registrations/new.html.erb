@@ -36,6 +36,7 @@
 </div>
 <script>
   $("#user_email").bind("change paste keyup", function() {
-      $("#user_username").val($(this).val().replace(/[aeiou]/gi, '').replace(/@.*/gi, '') + "<%=j(rand(36**2).to_s(36))%>");
+      //$("#user_username").val($(this).val().replace(/[aeiou]/gi, '').replace(/@.*/gi, '') + "<%=j(rand(36**2).to_s(36))%>");
+      $("#user_username").val($(this).val().replace(/@.*/gi, ''));
   });
 </script>
