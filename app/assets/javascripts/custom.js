@@ -19,6 +19,7 @@ $(document).ready(function(){
         $("body").toggleClass("show-sidebar");
         $(".nav-trigger").toggleClass("glyphicon-remove");
     });
+    //$('.selectpicker').selectpicker('mobile');
 });
 
 $(document).on('page:load', function(){
@@ -40,4 +41,5 @@ $(document).on('page:load', function(){
         $("body").toggleClass("show-sidebar");
         $(".nav-trigger").toggleClass("glyphicon-remove");
     });
+    //$('.selectpicker').selectpicker('mobile');
 });
