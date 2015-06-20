@@ -4,7 +4,9 @@
 <% elsif (@task.state == "Archived")%>
     console.log('tbody[data-item-id=<%=@task.id%>]');
     $.notify({ message: "Seccessfuly archived" },{ type: 'success' });
+  <% push_block project_channel(@project.id) do %>
     $('tbody[data-item-id=<%=@task.id%>]').remove();
+  <% end %>
 <% else %>
     console.log('#sortable-<%=@next_state.downcase%>');
   <% push_block project_channel(@project.id) do %>
